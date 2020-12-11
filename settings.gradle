@@ -1,0 +1,3 @@
+include ':app:logger'
+include ':app'
+rootProject.name = "KBasicsModul"
