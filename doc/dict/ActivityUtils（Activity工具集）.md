@@ -264,6 +264,6 @@
 
 ## 技术点
 
-### Context
+## [Context](https://github.com/kingwin0129/KBasicModul/blob/main/doc/note/Context/Context.md)
 
-### Activity
+## [Activity](https://github.com/kingwin0129/KBasicModul/blob/main/doc/note/Activity/Activity.md)
