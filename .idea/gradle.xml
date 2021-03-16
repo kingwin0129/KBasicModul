@@ -12,7 +12,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/authv1" />
+            <option value="$PROJECT_DIR$/gather" />
             <option value="$PROJECT_DIR$/logger" />
+            <option value="$PROJECT_DIR$/network" />
+            <option value="$PROJECT_DIR$/permission" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
