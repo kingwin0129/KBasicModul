@@ -7,8 +7,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 
-import com.blankj.utilcode.constant.MemoryConstants;
-import com.blankj.utilcode.constant.TimeConstants;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,6 +25,10 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+
+import kingwin.utils.gather.KUtilsGuide;
+import kingwin.utils.gather.constant.MemoryConstants;
+import kingwin.utils.gather.constant.TimeConstants;
 
 /**
  * <pre>
@@ -184,7 +186,7 @@ public final class ConvertUtils {
      * @return the bytes
      */
     public static byte[] hexString2Bytes(String hexString) {
-        if (UtilsBridge.isSpace(hexString)) return new byte[0];
+        if (KUtilsGuide.isSpace(hexString)) return new byte[0];
         int len = hexString.length();
         if (len % 2 != 0) {
             hexString = "0" + hexString;
@@ -368,42 +370,42 @@ public final class ConvertUtils {
      * Bytes to bitmap.
      */
     public static Bitmap bytes2Bitmap(final byte[] bytes) {
-        return UtilsBridge.bytes2Bitmap(bytes);
+        return KUtilsGuide.bytes2Bitmap(bytes);
     }
 
     /**
      * Bitmap to bytes.
      */
     public static byte[] bitmap2Bytes(final Bitmap bitmap) {
-        return UtilsBridge.bitmap2Bytes(bitmap);
+        return KUtilsGuide.bitmap2Bytes(bitmap);
     }
 
     /**
      * Bitmap to bytes.
      */
     public static byte[] bitmap2Bytes(final Bitmap bitmap, final Bitmap.CompressFormat format, int quality) {
-        return UtilsBridge.bitmap2Bytes(bitmap, format, quality);
+        return KUtilsGuide.bitmap2Bytes(bitmap, format, quality);
     }
 
     /**
      * Bytes to drawable.
      */
     public static Drawable bytes2Drawable(final byte[] bytes) {
-        return UtilsBridge.bytes2Drawable(bytes);
+        return KUtilsGuide.bytes2Drawable(bytes);
     }
 
     /**
      * Drawable to bytes.
      */
     public static byte[] drawable2Bytes(final Drawable drawable) {
-        return UtilsBridge.drawable2Bytes(drawable);
+        return KUtilsGuide.drawable2Bytes(drawable);
     }
 
     /**
      * Drawable to bytes.
      */
     public static byte[] drawable2Bytes(final Drawable drawable, final Bitmap.CompressFormat format, int quality) {
-        return UtilsBridge.drawable2Bytes(drawable, format, quality);
+        return KUtilsGuide.drawable2Bytes(drawable, format, quality);
     }
 
     /**
@@ -535,7 +537,7 @@ public final class ConvertUtils {
      * @return fit time span
      */
     public static String millis2FitTimeSpan(long millis, int precision) {
-        return UtilsBridge.millis2FitTimeSpan(millis, precision);
+        return KUtilsGuide.millis2FitTimeSpan(millis, precision);
     }
 
     /**
@@ -706,54 +708,54 @@ public final class ConvertUtils {
      * Drawable to bitmap.
      */
     public static Bitmap drawable2Bitmap(final Drawable drawable) {
-        return UtilsBridge.drawable2Bitmap(drawable);
+        return KUtilsGuide.drawable2Bitmap(drawable);
     }
 
     /**
      * Bitmap to drawable.
      */
     public static Drawable bitmap2Drawable(final Bitmap bitmap) {
-        return UtilsBridge.bitmap2Drawable(bitmap);
+        return KUtilsGuide.bitmap2Drawable(bitmap);
     }
 
     /**
      * View to bitmap.
      */
     public static Bitmap view2Bitmap(final View view) {
-        return UtilsBridge.view2Bitmap(view);
+        return KUtilsGuide.view2Bitmap(view);
     }
 
     /**
      * Value of dp to value of px.
      */
     public static int dp2px(final float dpValue) {
-        return UtilsBridge.dp2px(dpValue);
+        return KUtilsGuide.dp2px(dpValue);
     }
 
     /**
      * Value of px to value of dp.
      */
     public static int px2dp(final float pxValue) {
-        return UtilsBridge.px2dp(pxValue);
+        return KUtilsGuide.px2dp(pxValue);
     }
 
     /**
      * Value of sp to value of px.
      */
     public static int sp2px(final float spValue) {
-        return UtilsBridge.sp2px(spValue);
+        return KUtilsGuide.sp2px(spValue);
     }
 
     /**
      * Value of px to value of sp.
      */
     public static int px2sp(final float pxValue) {
-        return UtilsBridge.px2sp(pxValue);
+        return KUtilsGuide.px2sp(pxValue);
     }
 
     private static String getSafeCharset(String charsetName) {
         String cn = charsetName;
-        if (UtilsBridge.isSpace(charsetName) || !Charset.isSupported(charsetName)) {
+        if (KUtilsGuide.isSpace(charsetName) || !Charset.isSupported(charsetName)) {
             cn = "UTF-8";
         }
         return cn;

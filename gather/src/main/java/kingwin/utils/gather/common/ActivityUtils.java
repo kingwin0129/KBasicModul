@@ -116,6 +116,7 @@ public final class ActivityUtils {
      * @param context Context上下文
      * @return context对应的Activity
      */
+
     @Nullable
     private static Activity getActivityFromDecorContext(@Nullable Context context) {
         if (context == null) return null;

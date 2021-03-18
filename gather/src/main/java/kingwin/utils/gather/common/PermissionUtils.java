@@ -8,16 +8,16 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 
-import com.blankj.utilcode.constant.PermissionConstants;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +26,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.blankj.utilcode.constant.PermissionConstants.PermissionGroup;
+import kingwin.utils.gather.KUtilsGuide;
+import kingwin.utils.gather.constant.PermissionConstants;
+
 
 /**
  * <pre>
@@ -38,7 +40,7 @@ import static com.blankj.utilcode.constant.PermissionConstants.PermissionGroup;
  */
 public final class PermissionUtils {
 
-    private static com.blankj.utilcode.util.PermissionUtils sInstance;
+    private static PermissionUtils sInstance;
 
     private String[]            mPermissionsParam;
     private OnExplainListener   mOnExplainListener;
@@ -62,7 +64,7 @@ public final class PermissionUtils {
      * @return the permissions used in application
      */
     public static List<String> getPermissions() {
-        return getPermissions(Utils.getApp().getPackageName());
+        return getPermissions(KUtilsGuide.getApp().getPackageName());
     }
 
     /**
@@ -72,7 +74,7 @@ public final class PermissionUtils {
      * @return the permissions used in application
      */
     public static List<String> getPermissions(final String packageName) {
-        PackageManager pm = Utils.getApp().getPackageManager();
+        PackageManager pm = KUtilsGuide.getApp().getPackageManager();
         try {
             String[] permissions = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS).requestedPermissions;
             if (permissions == null) return Collections.emptyList();
@@ -128,7 +130,7 @@ public final class PermissionUtils {
     private static boolean isGranted(final String permission) {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M
                 || PackageManager.PERMISSION_GRANTED
-                == ContextCompat.checkSelfPermission(Utils.getApp(), permission);
+                == ContextCompat.checkSelfPermission(KUtilsGuide.getApp(), permission);
     }
 
     /**
@@ -138,7 +140,7 @@ public final class PermissionUtils {
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static boolean isGrantedWriteSettings() {
-        return Settings.System.canWrite(Utils.getApp());
+        return Settings.System.canWrite(KUtilsGuide.getApp());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -154,8 +156,8 @@ public final class PermissionUtils {
     @TargetApi(Build.VERSION_CODES.M)
     private static void startWriteSettingsActivity(final Activity activity, final int requestCode) {
         Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-        intent.setData(Uri.parse("package:" + Utils.getApp().getPackageName()));
-        if (!UtilsBridge.isIntentAvailable(intent)) {
+        intent.setData(Uri.parse("package:" + KUtilsGuide.getApp().getPackageName()));
+        if (!KUtilsGuide.isIntentAvailable(intent)) {
             launchAppDetailsSettings();
             return;
         }
@@ -169,7 +171,7 @@ public final class PermissionUtils {
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static boolean isGrantedDrawOverlays() {
-        return Settings.canDrawOverlays(Utils.getApp());
+        return Settings.canDrawOverlays(KUtilsGuide.getApp());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -185,8 +187,8 @@ public final class PermissionUtils {
     @TargetApi(Build.VERSION_CODES.M)
     private static void startOverlayPermissionActivity(final Activity activity, final int requestCode) {
         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-        intent.setData(Uri.parse("package:" + Utils.getApp().getPackageName()));
-        if (!UtilsBridge.isIntentAvailable(intent)) {
+        intent.setData(Uri.parse("package:" + KUtilsGuide.getApp().getPackageName()));
+        if (!KUtilsGuide.isIntentAvailable(intent)) {
             launchAppDetailsSettings();
             return;
         }
@@ -197,18 +199,18 @@ public final class PermissionUtils {
      * Launch the application's details settings.
      */
     public static void launchAppDetailsSettings() {
-        Intent intent = UtilsBridge.getLaunchAppDetailsSettingsIntent(Utils.getApp().getPackageName(), true);
-        if (!UtilsBridge.isIntentAvailable(intent)) return;
-        Utils.getApp().startActivity(intent);
+        Intent intent = KUtilsGuide.getLaunchAppDetailsSettingsIntent(KUtilsGuide.getApp().getPackageName(), true);
+        if (!KUtilsGuide.isIntentAvailable(intent)) return;
+        KUtilsGuide.getApp().startActivity(intent);
     }
 
     /**
      * Set the permissions.
      *
      * @param permissions The permissions.
-     * @return the single {@link com.blankj.utilcode.util.PermissionUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.PermissionUtils} instance
      */
-    public static com.blankj.utilcode.util.PermissionUtils permissionGroup(@PermissionGroup final String... permissions) {
+    public static PermissionUtils permissionGroup(@PermissionConstants.PermissionGroup final String... permissions) {
         return permission(permissions);
     }
 
@@ -216,10 +218,10 @@ public final class PermissionUtils {
      * Set the permissions.
      *
      * @param permissions The permissions.
-     * @return the single {@link com.blankj.utilcode.util.PermissionUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.PermissionUtils} instance
      */
-    public static com.blankj.utilcode.util.PermissionUtils permission(final String... permissions) {
-        return new com.blankj.utilcode.util.PermissionUtils(permissions);
+    public static PermissionUtils permission(final String... permissions) {
+        return new PermissionUtils(permissions);
     }
 
     private PermissionUtils(final String... permissions) {
@@ -231,9 +233,9 @@ public final class PermissionUtils {
      * Set explain listener.
      *
      * @param listener The explain listener.
-     * @return the single {@link com.blankj.utilcode.util.PermissionUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.PermissionUtils} instance
      */
-    public com.blankj.utilcode.util.PermissionUtils explain(final OnExplainListener listener) {
+    public PermissionUtils explain(final OnExplainListener listener) {
         mOnExplainListener = listener;
         return this;
     }
@@ -242,9 +244,9 @@ public final class PermissionUtils {
      * Set rationale listener.
      *
      * @param listener The rationale listener.
-     * @return the single {@link com.blankj.utilcode.util.PermissionUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.PermissionUtils} instance
      */
-    public com.blankj.utilcode.util.PermissionUtils rationale(final OnRationaleListener listener) {
+    public PermissionUtils rationale(final OnRationaleListener listener) {
         mOnRationaleListener = listener;
         return this;
     }
@@ -253,9 +255,9 @@ public final class PermissionUtils {
      * Set the simple call back.
      *
      * @param callback the single call back
-     * @return the single {@link com.blankj.utilcode.util.PermissionUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.PermissionUtils} instance
      */
-    public com.blankj.utilcode.util.PermissionUtils callback(final SingleCallback callback) {
+    public PermissionUtils callback(final SingleCallback callback) {
         mSingleCallback = callback;
         return this;
     }
@@ -264,9 +266,9 @@ public final class PermissionUtils {
      * Set the simple call back.
      *
      * @param callback the simple call back
-     * @return the single {@link com.blankj.utilcode.util.PermissionUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.PermissionUtils} instance
      */
-    public com.blankj.utilcode.util.PermissionUtils callback(final SimpleCallback callback) {
+    public PermissionUtils callback(final SimpleCallback callback) {
         mSimpleCallback = callback;
         return this;
     }
@@ -275,9 +277,9 @@ public final class PermissionUtils {
      * Set the full call back.
      *
      * @param callback the full call back
-     * @return the single {@link com.blankj.utilcode.util.PermissionUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.PermissionUtils} instance
      */
-    public com.blankj.utilcode.util.PermissionUtils callback(final FullCallback callback) {
+    public PermissionUtils callback(final FullCallback callback) {
         mFullCallback = callback;
         return this;
     }
@@ -286,9 +288,9 @@ public final class PermissionUtils {
      * Set the theme callback.
      *
      * @param callback The theme callback.
-     * @return the single {@link com.blankj.utilcode.util.PermissionUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.PermissionUtils} instance
      */
-    public com.blankj.utilcode.util.PermissionUtils theme(final ThemeCallback callback) {
+    public PermissionUtils theme(final ThemeCallback callback) {
         mThemeCallback = callback;
         return this;
     }
@@ -428,7 +430,7 @@ public final class PermissionUtils {
         private static PermissionActivityImpl INSTANCE = new PermissionActivityImpl();
 
         public static void start(final int type) {
-            UtilsTransActivity.start(new Utils.Consumer<Intent>() {
+            UtilsTransActivity.start(new KUtilsGuide.Consumer<Intent>() {
                 @Override
                 public void accept(Intent data) {
                     data.putExtra(TYPE, type);

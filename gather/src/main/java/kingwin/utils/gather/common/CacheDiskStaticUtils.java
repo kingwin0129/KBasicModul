@@ -3,8 +3,9 @@ package kingwin.utils.gather.common;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,14 +22,14 @@ import java.io.Serializable;
  */
 public final class CacheDiskStaticUtils {
 
-    private static com.blankj.utilcode.util.CacheDiskUtils sDefaultCacheDiskUtils;
+    private static CacheDiskUtils sDefaultCacheDiskUtils;
 
     /**
-     * Set the default instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * Set the default instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      *
-     * @param cacheDiskUtils The default instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The default instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
-    public static void setDefaultCacheDiskUtils(@Nullable final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+    public static void setDefaultCacheDiskUtils(@Nullable final CacheDiskUtils cacheDiskUtils) {
         sDefaultCacheDiskUtils = cacheDiskUtils;
     }
 
@@ -453,11 +454,11 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param value          The value of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final byte[] value,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
 
@@ -467,12 +468,12 @@ public final class CacheDiskStaticUtils {
      * @param key            The key of cache.
      * @param value          The value of cache.
      * @param saveTime       The save time of cache, in seconds.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final byte[] value,
                            final int saveTime,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
     }
 
@@ -480,10 +481,10 @@ public final class CacheDiskStaticUtils {
      * Return the bytes in cache.
      *
      * @param key            The key of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the bytes if cache exists or null otherwise
      */
-    public static byte[] getBytes(@NonNull final String key, @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+    public static byte[] getBytes(@NonNull final String key, @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getBytes(key);
     }
 
@@ -492,12 +493,12 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param defaultValue   The default value if the cache doesn't exist.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the bytes if cache exists or defaultValue otherwise
      */
     public static byte[] getBytes(@NonNull final String key,
                                   @Nullable final byte[] defaultValue,
-                                  @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                                  @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getBytes(key, defaultValue);
     }
 
@@ -510,11 +511,11 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param value          The value of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final String value,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
 
@@ -524,12 +525,12 @@ public final class CacheDiskStaticUtils {
      * @param key            The key of cache.
      * @param value          The value of cache.
      * @param saveTime       The save time of cache, in seconds.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final String value,
                            final int saveTime,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
     }
 
@@ -537,10 +538,10 @@ public final class CacheDiskStaticUtils {
      * Return the string value in cache.
      *
      * @param key            The key of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the string value if cache exists or null otherwise
      */
-    public static String getString(@NonNull final String key, @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+    public static String getString(@NonNull final String key, @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getString(key);
     }
 
@@ -549,12 +550,12 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param defaultValue   The default value if the cache doesn't exist.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the string value if cache exists or defaultValue otherwise
      */
     public static String getString(@NonNull final String key,
                                    @Nullable final String defaultValue,
-                                   @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                                   @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getString(key, defaultValue);
     }
 
@@ -567,11 +568,11 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param value          The value of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final JSONObject value,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
 
@@ -581,12 +582,12 @@ public final class CacheDiskStaticUtils {
      * @param key            The key of cache.
      * @param value          The value of cache.
      * @param saveTime       The save time of cache, in seconds.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final JSONObject value,
                            final int saveTime,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
     }
 
@@ -594,10 +595,10 @@ public final class CacheDiskStaticUtils {
      * Return the JSONObject in cache.
      *
      * @param key            The key of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the JSONObject if cache exists or null otherwise
      */
-    public static JSONObject getJSONObject(@NonNull final String key, @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+    public static JSONObject getJSONObject(@NonNull final String key, @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getJSONObject(key);
     }
 
@@ -606,12 +607,12 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param defaultValue   The default value if the cache doesn't exist.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the JSONObject if cache exists or defaultValue otherwise
      */
     public static JSONObject getJSONObject(@NonNull final String key,
                                            @Nullable final JSONObject defaultValue,
-                                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getJSONObject(key, defaultValue);
     }
 
@@ -625,11 +626,11 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param value          The value of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final JSONArray value,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
 
@@ -639,12 +640,12 @@ public final class CacheDiskStaticUtils {
      * @param key            The key of cache.
      * @param value          The value of cache.
      * @param saveTime       The save time of cache, in seconds.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final JSONArray value,
                            final int saveTime,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
     }
 
@@ -652,10 +653,10 @@ public final class CacheDiskStaticUtils {
      * Return the JSONArray in cache.
      *
      * @param key            The key of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the JSONArray if cache exists or null otherwise
      */
-    public static JSONArray getJSONArray(@NonNull final String key, @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+    public static JSONArray getJSONArray(@NonNull final String key, @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getJSONArray(key);
     }
 
@@ -664,12 +665,12 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param defaultValue   The default value if the cache doesn't exist.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the JSONArray if cache exists or defaultValue otherwise
      */
     public static JSONArray getJSONArray(@NonNull final String key,
                                          @Nullable final JSONArray defaultValue,
-                                         @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                                         @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getJSONArray(key, defaultValue);
     }
 
@@ -683,11 +684,11 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param value          The value of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final Bitmap value,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
 
@@ -697,12 +698,12 @@ public final class CacheDiskStaticUtils {
      * @param key            The key of cache.
      * @param value          The value of cache.
      * @param saveTime       The save time of cache, in seconds.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final Bitmap value,
                            final int saveTime,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
     }
 
@@ -710,10 +711,10 @@ public final class CacheDiskStaticUtils {
      * Return the bitmap in cache.
      *
      * @param key            The key of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the bitmap if cache exists or null otherwise
      */
-    public static Bitmap getBitmap(@NonNull final String key, @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+    public static Bitmap getBitmap(@NonNull final String key, @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getBitmap(key);
     }
 
@@ -722,12 +723,12 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param defaultValue   The default value if the cache doesn't exist.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the bitmap if cache exists or defaultValue otherwise
      */
     public static Bitmap getBitmap(@NonNull final String key,
                                    @Nullable final Bitmap defaultValue,
-                                   @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                                   @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getBitmap(key, defaultValue);
     }
 
@@ -740,11 +741,11 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param value          The value of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final Drawable value,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
 
@@ -754,12 +755,12 @@ public final class CacheDiskStaticUtils {
      * @param key            The key of cache.
      * @param value          The value of cache.
      * @param saveTime       The save time of cache, in seconds.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final Drawable value,
                            final int saveTime,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
     }
 
@@ -767,10 +768,10 @@ public final class CacheDiskStaticUtils {
      * Return the drawable in cache.
      *
      * @param key            The key of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the drawable if cache exists or null otherwise
      */
-    public static Drawable getDrawable(@NonNull final String key, @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+    public static Drawable getDrawable(@NonNull final String key, @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getDrawable(key);
     }
 
@@ -779,12 +780,12 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param defaultValue   The default value if the cache doesn't exist.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the drawable if cache exists or defaultValue otherwise
      */
     public static Drawable getDrawable(@NonNull final String key,
                                        @Nullable final Drawable defaultValue,
-                                       @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                                       @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getDrawable(key, defaultValue);
     }
 
@@ -797,11 +798,11 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param value          The value of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final Parcelable value,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
 
@@ -811,12 +812,12 @@ public final class CacheDiskStaticUtils {
      * @param key            The key of cache.
      * @param value          The value of cache.
      * @param saveTime       The save time of cache, in seconds.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final Parcelable value,
                            final int saveTime,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
     }
 
@@ -825,13 +826,13 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param creator        The creator.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @param <T>            The value type.
      * @return the parcelable if cache exists or null otherwise
      */
     public static <T> T getParcelable(@NonNull final String key,
                                       @NonNull final Parcelable.Creator<T> creator,
-                                      @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                                      @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getParcelable(key, creator);
     }
 
@@ -841,14 +842,14 @@ public final class CacheDiskStaticUtils {
      * @param key            The key of cache.
      * @param creator        The creator.
      * @param defaultValue   The default value if the cache doesn't exist.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @param <T>            The value type.
      * @return the parcelable if cache exists or defaultValue otherwise
      */
     public static <T> T getParcelable(@NonNull final String key,
                                       @NonNull final Parcelable.Creator<T> creator,
                                       @Nullable final T defaultValue,
-                                      @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                                      @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getParcelable(key, creator, defaultValue);
     }
 
@@ -861,11 +862,11 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param value          The value of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final Serializable value,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value);
     }
 
@@ -875,12 +876,12 @@ public final class CacheDiskStaticUtils {
      * @param key            The key of cache.
      * @param value          The value of cache.
      * @param saveTime       The save time of cache, in seconds.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      */
     public static void put(@NonNull final String key,
                            @Nullable final Serializable value,
                            final int saveTime,
-                           @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                           @NonNull final CacheDiskUtils cacheDiskUtils) {
         cacheDiskUtils.put(key, value, saveTime);
     }
 
@@ -888,10 +889,10 @@ public final class CacheDiskStaticUtils {
      * Return the serializable in cache.
      *
      * @param key            The key of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the bitmap if cache exists or null otherwise
      */
-    public static Object getSerializable(@NonNull final String key, @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+    public static Object getSerializable(@NonNull final String key, @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getSerializable(key);
     }
 
@@ -900,32 +901,32 @@ public final class CacheDiskStaticUtils {
      *
      * @param key            The key of cache.
      * @param defaultValue   The default value if the cache doesn't exist.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the bitmap if cache exists or defaultValue otherwise
      */
     public static Object getSerializable(@NonNull final String key,
                                          @Nullable final Object defaultValue,
-                                         @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+                                         @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getSerializable(key, defaultValue);
     }
 
     /**
      * Return the size of cache, in bytes.
      *
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the size of cache, in bytes
      */
-    public static long getCacheSize(@NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+    public static long getCacheSize(@NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getCacheSize();
     }
 
     /**
      * Return the count of cache.
      *
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return the count of cache
      */
-    public static int getCacheCount(@NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+    public static int getCacheCount(@NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.getCacheCount();
     }
 
@@ -933,25 +934,25 @@ public final class CacheDiskStaticUtils {
      * Remove the cache by key.
      *
      * @param key            The key of cache.
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return {@code true}: success<br>{@code false}: fail
      */
-    public static boolean remove(@NonNull final String key, @NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+    public static boolean remove(@NonNull final String key, @NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.remove(key);
     }
 
     /**
      * Clear all of the cache.
      *
-     * @param cacheDiskUtils The instance of {@link com.blankj.utilcode.util.CacheDiskUtils}.
+     * @param cacheDiskUtils The instance of {@link kingwin.utils.gather.common.CacheDiskUtils}.
      * @return {@code true}: success<br>{@code false}: fail
      */
-    public static boolean clear(@NonNull final com.blankj.utilcode.util.CacheDiskUtils cacheDiskUtils) {
+    public static boolean clear(@NonNull final CacheDiskUtils cacheDiskUtils) {
         return cacheDiskUtils.clear();
     }
 
     @NonNull
-    private static com.blankj.utilcode.util.CacheDiskUtils getDefaultCacheDiskUtils() {
-        return sDefaultCacheDiskUtils != null ? sDefaultCacheDiskUtils : com.blankj.utilcode.util.CacheDiskUtils.getInstance();
+    private static CacheDiskUtils getDefaultCacheDiskUtils() {
+        return sDefaultCacheDiskUtils != null ? sDefaultCacheDiskUtils : CacheDiskUtils.getInstance();
     }
 }

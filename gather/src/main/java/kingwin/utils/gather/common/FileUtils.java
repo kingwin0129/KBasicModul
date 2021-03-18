@@ -33,7 +33,7 @@ import kingwin.utils.gather.KUtilsGuide;
  * @since 2021/3/9 9:54 AM
  */
 
-class FileUtils {
+public class FileUtils {
 
 
     private static final String LINE_SEP = System.getProperty("line.separator");
@@ -49,7 +49,7 @@ class FileUtils {
      * @return the file
      */
     public static File getFileByPath(final String filePath) {
-        return UtilsBridge.isSpace(filePath) ? null : new File(filePath);
+        return KUtilsGuide.isSpace(filePath) ? null : new File(filePath);
     }
 
     /**
@@ -85,7 +85,7 @@ class FileUtils {
         if (Build.VERSION.SDK_INT >= 29) {
             try {
                 Uri uri = Uri.parse(filePath);
-                ContentResolver cr = Utils.getApp().getContentResolver();
+                ContentResolver cr = KUtilsGuide.getApp().getContentResolver();
                 AssetFileDescriptor afd = cr.openAssetFileDescriptor(uri, "r");
                 if (afd == null) return false;
                 try {
@@ -124,7 +124,7 @@ class FileUtils {
         // file doesn't exist then return false
         if (!file.exists()) return false;
         // the new name is space then return false
-        if (UtilsBridge.isSpace(newName)) return false;
+        if (KUtilsGuide.isSpace(newName)) return false;
         // the new name equals old name then return true
         if (newName.equals(file.getName())) return true;
         File newFile = new File(file.getParent() + File.separator + newName);
@@ -463,7 +463,7 @@ class FileUtils {
         }
         if (!createOrExistsDir(destFile.getParentFile())) return false;
         try {
-            return UtilsBridge.writeFileFromIS(destFile.getAbsolutePath(), new FileInputStream(srcFile))
+            return KUtilsGuide.writeFileFromIS(destFile.getAbsolutePath(), new FileInputStream(srcFile))
                     && !(isMove && !deleteFile(srcFile));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -1123,7 +1123,7 @@ class FileUtils {
      */
     private static String getDirSize(final File dir) {
         long len = getDirLength(dir);
-        return len == -1 ? "" : UtilsBridge.byte2FitMemorySize(len);
+        return len == -1 ? "" : KUtilsGuide.byte2FitMemorySize(len);
     }
 
     /**
@@ -1134,7 +1134,7 @@ class FileUtils {
      */
     private static String getFileSize(final File file) {
         long len = getFileLength(file);
-        return len == -1 ? "" : UtilsBridge.byte2FitMemorySize(len);
+        return len == -1 ? "" : KUtilsGuide.byte2FitMemorySize(len);
     }
 
     /**
@@ -1225,7 +1225,7 @@ class FileUtils {
      * @return the md5 of file
      */
     public static String getFileMD5ToString(final String filePath) {
-        File file = UtilsBridge.isSpace(filePath) ? null : new File(filePath);
+        File file = KUtilsGuide.isSpace(filePath) ? null : new File(filePath);
         return getFileMD5ToString(file);
     }
 
@@ -1236,7 +1236,7 @@ class FileUtils {
      * @return the md5 of file
      */
     public static String getFileMD5ToString(final File file) {
-        return UtilsBridge.bytes2HexString(getFileMD5(file));
+        return KUtilsGuide.bytes2HexString(getFileMD5(file));
     }
 
     /**
@@ -1300,7 +1300,7 @@ class FileUtils {
      * @return the file's path of directory
      */
     public static String getDirName(final String filePath) {
-        if (UtilsBridge.isSpace(filePath)) return "";
+        if (KUtilsGuide.isSpace(filePath)) return "";
         int lastSep = filePath.lastIndexOf(File.separator);
         return lastSep == -1 ? "" : filePath.substring(0, lastSep + 1);
     }
@@ -1323,7 +1323,7 @@ class FileUtils {
      * @return the name of file
      */
     public static String getFileName(final String filePath) {
-        if (UtilsBridge.isSpace(filePath)) return "";
+        if (KUtilsGuide.isSpace(filePath)) return "";
         int lastSep = filePath.lastIndexOf(File.separator);
         return lastSep == -1 ? filePath : filePath.substring(lastSep + 1);
     }
@@ -1346,7 +1346,7 @@ class FileUtils {
      * @return the name of file without extension
      */
     public static String getFileNameNoExtension(final String filePath) {
-        if (UtilsBridge.isSpace(filePath)) return "";
+        if (KUtilsGuide.isSpace(filePath)) return "";
         int lastPoi = filePath.lastIndexOf('.');
         int lastSep = filePath.lastIndexOf(File.separator);
         if (lastSep == -1) {
@@ -1376,7 +1376,7 @@ class FileUtils {
      * @return the extension of file
      */
     public static String getFileExtension(final String filePath) {
-        if (UtilsBridge.isSpace(filePath)) return "";
+        if (KUtilsGuide.isSpace(filePath)) return "";
         int lastPoi = filePath.lastIndexOf('.');
         int lastSep = filePath.lastIndexOf(File.separator);
         if (lastPoi == -1 || lastSep >= lastPoi) return "";

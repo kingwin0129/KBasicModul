@@ -1,9 +1,10 @@
 package kingwin.utils.gather.common;
 
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 import java.util.Iterator;
 import java.util.Map;

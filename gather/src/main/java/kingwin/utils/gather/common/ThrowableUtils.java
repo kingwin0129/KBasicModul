@@ -8,10 +8,10 @@ import java.util.StringTokenizer;
 
 /**
  * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2019/02/12
- *     desc  : utils about exception
+ *     author: KingWin
+ *     blog  : https://github.com/kingwin0129
+ *     time  : 2021/03/23
+ *     desc  : 异常相关
  * </pre>
  */
 public class ThrowableUtils {

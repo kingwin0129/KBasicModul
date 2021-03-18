@@ -12,11 +12,14 @@ import android.provider.Settings;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
+import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import kingwin.utils.gather.KUtilsGuide;
 
 import static android.Manifest.permission.CALL_PHONE;
 
@@ -34,7 +37,7 @@ public class IntentUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean isIntentAvailable(final Intent intent) {
-        return Utils.getApp()
+        return KUtilsGuide.getApp()
                 .getPackageManager()
                 .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
                 .size() > 0;
@@ -49,7 +52,7 @@ public class IntentUtils {
      * @return the intent of install app
      */
     public static Intent getInstallAppIntent(final String filePath) {
-        return getInstallAppIntent(UtilsBridge.getFileByPath(filePath));
+        return getInstallAppIntent(KUtilsGuide.getFileByPath(filePath));
     }
 
     /**
@@ -61,13 +64,13 @@ public class IntentUtils {
      * @return the intent of install app
      */
     public static Intent getInstallAppIntent(final File file) {
-        if (!UtilsBridge.isFileExists(file)) return null;
+        if (!KUtilsGuide.isFileExists(file)) return null;
         Uri uri;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             uri = Uri.fromFile(file);
         } else {
-            String authority = Utils.getApp().getPackageName() + ".utilcode.provider";
-            uri = FileProvider.getUriForFile(Utils.getApp(), authority, file);
+            String authority = KUtilsGuide.getApp().getPackageName() + ".utilcode.provider";
+            uri = FileProvider.getUriForFile(KUtilsGuide.getApp(), authority, file);
         }
         return getInstallAppIntent(uri);
     }
@@ -112,8 +115,8 @@ public class IntentUtils {
      * @return the intent of launch app
      */
     public static Intent getLaunchAppIntent(final String pkgName) {
-        String launcherActivity = UtilsBridge.getLauncherActivity(pkgName);
-        if (UtilsBridge.isSpace(launcherActivity)) return null;
+        String launcherActivity = KUtilsGuide.getLauncherActivity(pkgName);
+        if (KUtilsGuide.isSpace(launcherActivity)) return null;
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.setClassName(pkgName, launcherActivity);
@@ -194,7 +197,7 @@ public class IntentUtils {
      * @return the intent of share image
      */
     public static Intent getShareTextImageIntent(@Nullable final String content, final String imagePath) {
-        return getShareTextImageIntent(content, UtilsBridge.getFileByPath(imagePath));
+        return getShareTextImageIntent(content, KUtilsGuide.getFileByPath(imagePath));
     }
 
     /**
@@ -205,7 +208,7 @@ public class IntentUtils {
      * @return the intent of share image
      */
     public static Intent getShareTextImageIntent(@Nullable final String content, final File imageFile) {
-        return getShareTextImageIntent(content, UtilsBridge.file2Uri(imageFile));
+        return getShareTextImageIntent(content, KUtilsGuide.file2Uri(imageFile));
     }
 
     /**
@@ -266,7 +269,7 @@ public class IntentUtils {
         List<File> files = new ArrayList<>();
         if (imagePaths != null) {
             for (String imagePath : imagePaths) {
-                File file = UtilsBridge.getFileByPath(imagePath);
+                File file = KUtilsGuide.getFileByPath(imagePath);
                 if (file != null) {
                     files.add(file);
                 }
@@ -286,7 +289,7 @@ public class IntentUtils {
         ArrayList<Uri> uris = new ArrayList<>();
         if (images != null) {
             for (File image : images) {
-                Uri uri = UtilsBridge.file2Uri(image);
+                Uri uri = KUtilsGuide.file2Uri(image);
                 if (uri != null) {
                     uris.add(uri);
                 }

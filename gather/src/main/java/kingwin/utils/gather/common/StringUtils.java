@@ -12,10 +12,10 @@ import kingwin.utils.gather.KUtilsGuide;
 
 /**
  * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/08/16
- *     desc  : utils about string
+ *     author: KingWin
+ *     blog  : https://github.com/kingwin0129
+ *     time  : 2021/03/23
+ *     desc  : 字符串相关
  * </pre>
  */
 public final class StringUtils {

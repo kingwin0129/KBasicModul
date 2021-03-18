@@ -3,9 +3,8 @@ package kingwin.utils.gather.common;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 
-import com.blankj.utilcode.constant.CacheConstants;
+import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,6 +12,8 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+import kingwin.utils.gather.constant.CacheConstants;
 
 /**
  * <pre>
@@ -30,30 +31,30 @@ public final class CacheDoubleUtils implements CacheConstants {
     private final CacheDiskUtils   mCacheDiskUtils;
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.CacheDoubleUtils} instance.
+     * Return the single {@link kingwin.utils.gather.common.CacheDoubleUtils} instance.
      *
-     * @return the single {@link com.blankj.utilcode.util.CacheDoubleUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.CacheDoubleUtils} instance
      */
-    public static com.blankj.utilcode.util.CacheDoubleUtils getInstance() {
+    public static CacheDoubleUtils getInstance() {
         return getInstance(CacheMemoryUtils.getInstance(), CacheDiskUtils.getInstance());
     }
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.CacheDoubleUtils} instance.
+     * Return the single {@link kingwin.utils.gather.common.CacheDoubleUtils} instance.
      *
      * @param cacheMemoryUtils The instance of {@link CacheMemoryUtils}.
      * @param cacheDiskUtils   The instance of {@link CacheDiskUtils}.
-     * @return the single {@link com.blankj.utilcode.util.CacheDoubleUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.CacheDoubleUtils} instance
      */
-    public static com.blankj.utilcode.util.CacheDoubleUtils getInstance(@NonNull final CacheMemoryUtils cacheMemoryUtils,
+    public static CacheDoubleUtils getInstance(@NonNull final CacheMemoryUtils cacheMemoryUtils,
                                                                         @NonNull final CacheDiskUtils cacheDiskUtils) {
         final String cacheKey = cacheDiskUtils.toString() + "_" + cacheMemoryUtils.toString();
-        com.blankj.utilcode.util.CacheDoubleUtils cache = CACHE_MAP.get(cacheKey);
+        CacheDoubleUtils cache = CACHE_MAP.get(cacheKey);
         if (cache == null) {
-            synchronized (com.blankj.utilcode.util.CacheDoubleUtils.class) {
+            synchronized (CacheDoubleUtils.class) {
                 cache = CACHE_MAP.get(cacheKey);
                 if (cache == null) {
-                    cache = new com.blankj.utilcode.util.CacheDoubleUtils(cacheMemoryUtils, cacheDiskUtils);
+                    cache = new CacheDoubleUtils(cacheMemoryUtils, cacheDiskUtils);
                     CACHE_MAP.put(cacheKey, cache);
                 }
             }

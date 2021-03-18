@@ -1,6 +1,7 @@
 package kingwin.utils.gather.common;
 
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 /**
  * <pre>

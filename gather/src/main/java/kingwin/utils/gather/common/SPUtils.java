@@ -3,12 +3,15 @@ package kingwin.utils.gather.common;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import kingwin.utils.gather.KUtilsGuide;
 
 /**
  * <pre>
@@ -26,49 +29,49 @@ public final class SPUtils {
     private SharedPreferences sp;
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.SPUtils} instance
+     * Return the single {@link kingwin.utils.gather.common.SPUtils} instance
      *
-     * @return the single {@link com.blankj.utilcode.util.SPUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SPUtils} instance
      */
-    public static com.blankj.utilcode.util.SPUtils getInstance() {
+    public static SPUtils getInstance() {
         return getInstance("", Context.MODE_PRIVATE);
     }
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.SPUtils} instance
+     * Return the single {@link kingwin.utils.gather.common.SPUtils} instance
      *
      * @param mode Operating mode.
-     * @return the single {@link com.blankj.utilcode.util.SPUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SPUtils} instance
      */
-    public static com.blankj.utilcode.util.SPUtils getInstance(final int mode) {
+    public static SPUtils getInstance(final int mode) {
         return getInstance("", mode);
     }
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.SPUtils} instance
+     * Return the single {@link kingwin.utils.gather.common.SPUtils} instance
      *
      * @param spName The name of sp.
-     * @return the single {@link com.blankj.utilcode.util.SPUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SPUtils} instance
      */
-    public static com.blankj.utilcode.util.SPUtils getInstance(String spName) {
+    public static SPUtils getInstance(String spName) {
         return getInstance(spName, Context.MODE_PRIVATE);
     }
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.SPUtils} instance
+     * Return the single {@link kingwin.utils.gather.common.SPUtils} instance
      *
      * @param spName The name of sp.
      * @param mode   Operating mode.
-     * @return the single {@link com.blankj.utilcode.util.SPUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SPUtils} instance
      */
-    public static com.blankj.utilcode.util.SPUtils getInstance(String spName, final int mode) {
+    public static SPUtils getInstance(String spName, final int mode) {
         if (isSpace(spName)) spName = "spUtils";
-        com.blankj.utilcode.util.SPUtils spUtils = SP_UTILS_MAP.get(spName);
+        SPUtils spUtils = SP_UTILS_MAP.get(spName);
         if (spUtils == null) {
-            synchronized (com.blankj.utilcode.util.SPUtils.class) {
+            synchronized (SPUtils.class) {
                 spUtils = SP_UTILS_MAP.get(spName);
                 if (spUtils == null) {
-                    spUtils = new com.blankj.utilcode.util.SPUtils(spName, mode);
+                    spUtils = new SPUtils(spName, mode);
                     SP_UTILS_MAP.put(spName, spUtils);
                 }
             }
@@ -77,11 +80,11 @@ public final class SPUtils {
     }
 
     private SPUtils(final String spName) {
-        sp = Utils.getApp().getSharedPreferences(spName, Context.MODE_PRIVATE);
+        sp = KUtilsGuide.getApp().getSharedPreferences(spName, Context.MODE_PRIVATE);
     }
 
     private SPUtils(final String spName, final int mode) {
-        sp = Utils.getApp().getSharedPreferences(spName, mode);
+        sp = KUtilsGuide.getApp().getSharedPreferences(spName, mode);
     }
 
     /**

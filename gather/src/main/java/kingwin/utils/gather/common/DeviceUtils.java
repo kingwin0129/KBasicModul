@@ -10,10 +10,11 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RequiresPermission;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -21,6 +22,8 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.UUID;
+
+import kingwin.utils.gather.KUtilsGuide;
 
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.CHANGE_WIFI_STATE;
@@ -67,7 +70,7 @@ public final class DeviceUtils {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static boolean isAdbEnabled() {
         return Settings.Secure.getInt(
-                Utils.getApp().getContentResolver(),
+                KUtilsGuide.getApp().getContentResolver(),
                 Settings.Global.ADB_ENABLED, 0
         ) > 0;
     }
@@ -98,7 +101,7 @@ public final class DeviceUtils {
     @SuppressLint("HardwareIds")
     public static String getAndroidID() {
         String id = Settings.Secure.getString(
-                Utils.getApp().getContentResolver(),
+                KUtilsGuide.getApp().getContentResolver(),
                 Settings.Secure.ANDROID_ID
         );
         if ("9774d56d682e549c".equals(id)) return "";
@@ -124,7 +127,7 @@ public final class DeviceUtils {
 
     private static boolean getWifiEnabled() {
         @SuppressLint("WifiManagerLeak")
-        WifiManager manager = (WifiManager) Utils.getApp().getSystemService(WIFI_SERVICE);
+        WifiManager manager = (WifiManager) KUtilsGuide.getApp().getSystemService(WIFI_SERVICE);
         if (manager == null) return false;
         return manager.isWifiEnabled();
     }
@@ -138,7 +141,7 @@ public final class DeviceUtils {
     @RequiresPermission(CHANGE_WIFI_STATE)
     private static void setWifiEnabled(final boolean enabled) {
         @SuppressLint("WifiManagerLeak")
-        WifiManager manager = (WifiManager) Utils.getApp().getSystemService(WIFI_SERVICE);
+        WifiManager manager = (WifiManager) KUtilsGuide.getApp().getSystemService(WIFI_SERVICE);
         if (manager == null) return;
         if (enabled == manager.isWifiEnabled()) return;
         manager.setWifiEnabled(enabled);
@@ -193,7 +196,7 @@ public final class DeviceUtils {
     @RequiresPermission(ACCESS_WIFI_STATE)
     private static String getMacAddressByWifiInfo() {
         try {
-            final WifiManager wifi = (WifiManager) Utils.getApp()
+            final WifiManager wifi = (WifiManager) KUtilsGuide.getApp()
                     .getApplicationContext().getSystemService(WIFI_SERVICE);
             if (wifi != null) {
                 final WifiInfo info = wifi.getConnectionInfo();
@@ -277,11 +280,11 @@ public final class DeviceUtils {
     }
 
     private static String getMacAddressByFile() {
-        ShellUtils.CommandResult result = UtilsBridge.execCmd("getprop wifi.interface", false);
+        ShellUtils.CommandResult result = KUtilsGuide.execCmd("getprop wifi.interface", false);
         if (result.result == 0) {
             String name = result.successMsg;
             if (name != null) {
-                result = UtilsBridge.execCmd("cat /sys/class/net/" + name + "/address", false);
+                result = KUtilsGuide.execCmd("cat /sys/class/net/" + name + "/address", false);
                 if (result.result == 0) {
                     String address = result.successMsg;
                     if (address != null && address.length() > 0) {
@@ -365,7 +368,7 @@ public final class DeviceUtils {
         if (checkProperty) return true;
 
         String operatorName = "";
-        TelephonyManager tm = (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) KUtilsGuide.getApp().getSystemService(Context.TELEPHONY_SERVICE);
         if (tm != null) {
             String name = tm.getNetworkOperatorName();
             if (name != null) {
@@ -379,7 +382,7 @@ public final class DeviceUtils {
         Intent intent = new Intent();
         intent.setData(Uri.parse(url));
         intent.setAction(Intent.ACTION_DIAL);
-        boolean checkDial = intent.resolveActivity(Utils.getApp().getPackageManager()) == null;
+        boolean checkDial = intent.resolveActivity(KUtilsGuide.getApp().getPackageManager()) == null;
         if (checkDial) return true;
 
 //        boolean checkDebuggerConnected = Debug.isDebuggerConnected();
@@ -396,7 +399,7 @@ public final class DeviceUtils {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static boolean isDevelopmentSettingsEnabled() {
         return Settings.Global.getInt(
-                Utils.getApp().getContentResolver(),
+                KUtilsGuide.getApp().getContentResolver(),
                 Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0
         ) > 0;
     }
@@ -458,9 +461,9 @@ public final class DeviceUtils {
             return getUniqueDeviceIdReal(prefix);
         }
         if (udid == null) {
-            synchronized (com.blankj.utilcode.util.DeviceUtils.class) {
+            synchronized (DeviceUtils.class) {
                 if (udid == null) {
-                    final String id = UtilsBridge.getSpUtils4Utils().getString(KEY_UDID, null);
+                    final String id = KUtilsGuide.getSpUtils4Utils().getString(KEY_UDID, null);
                     if (id != null) {
                         udid = id;
                         return udid;
@@ -488,7 +491,7 @@ public final class DeviceUtils {
         // {prefix}{type}{32id}
         if (TextUtils.isEmpty(uniqueDeviceId) && uniqueDeviceId.length() < 33) return false;
         if (uniqueDeviceId.equals(udid)) return true;
-        final String cachedId = UtilsBridge.getSpUtils4Utils().getString(KEY_UDID, null);
+        final String cachedId = KUtilsGuide.getSpUtils4Utils().getString(KEY_UDID, null);
         if (uniqueDeviceId.equals(cachedId)) return true;
         int st = uniqueDeviceId.length() - 33;
         String type = uniqueDeviceId.substring(st, st + 1);
@@ -510,7 +513,7 @@ public final class DeviceUtils {
 
     private static String saveUdid(String prefix, String id) {
         udid = getUdid(prefix, id);
-        UtilsBridge.getSpUtils4Utils().put(KEY_UDID, udid);
+        KUtilsGuide.getSpUtils4Utils().put(KEY_UDID, udid);
         return udid;
     }
 

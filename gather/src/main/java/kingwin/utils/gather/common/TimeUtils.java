@@ -1,9 +1,8 @@
 package kingwin.utils.gather.common;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
 
-import com.blankj.utilcode.constant.TimeConstants;
+import androidx.annotation.NonNull;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -14,6 +13,8 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import kingwin.utils.gather.constant.TimeConstants;
 
 /**
  * <pre>
@@ -1595,7 +1596,7 @@ public final class TimeUtils {
         return millis / unit;
     }
 
-    static String millis2FitTimeSpan(long millis, int precision) {
+    public static String millis2FitTimeSpan(long millis, int precision) {
         if (precision <= 0) return null;
         precision = Math.min(precision, 5);
         String[] units = {"天", "小时", "分钟", "秒", "毫秒"};

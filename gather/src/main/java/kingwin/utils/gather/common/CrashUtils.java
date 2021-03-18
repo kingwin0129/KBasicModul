@@ -1,12 +1,15 @@
 package kingwin.utils.gather.common;
 
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+
+import kingwin.utils.gather.KUtilsGuide;
 
 /**
  * <pre>
@@ -78,12 +81,12 @@ public final class CrashUtils {
      */
     public static void init(final String crashDirPath, final OnCrashListener onCrashListener) {
         String dirPath;
-        if (UtilsBridge.isSpace(crashDirPath)) {
-            if (UtilsBridge.isSDCardEnableByEnvironment()
-                    && Utils.getApp().getExternalFilesDir(null) != null)
-                dirPath = Utils.getApp().getExternalFilesDir(null) + FILE_SEP + "crash" + FILE_SEP;
+        if (KUtilsGuide.isSpace(crashDirPath)) {
+            if (KUtilsGuide.isSDCardEnableByEnvironment()
+                    && KUtilsGuide.getApp().getExternalFilesDir(null) != null)
+                dirPath = KUtilsGuide.getApp().getExternalFilesDir(null) + FILE_SEP + "crash" + FILE_SEP;
             else {
-                dirPath = Utils.getApp().getFilesDir() + FILE_SEP + "crash" + FILE_SEP;
+                dirPath = KUtilsGuide.getApp().getFilesDir() + FILE_SEP + "crash" + FILE_SEP;
             }
         } else {
             dirPath = crashDirPath.endsWith(FILE_SEP) ? crashDirPath : crashDirPath + FILE_SEP;
@@ -102,7 +105,7 @@ public final class CrashUtils {
                     onCrashListener.onCrash(info);
                 }
                 final String crashFile = dirPath + time + ".txt";
-                UtilsBridge.writeFileFromString(crashFile, info.toString(), true);
+                KUtilsGuide.writeFileFromString(crashFile, info.toString(), true);
 
                 if (DEFAULT_UNCAUGHT_EXCEPTION_HANDLER != null) {
                     DEFAULT_UNCAUGHT_EXCEPTION_HANDLER.uncaughtException(t, e);
@@ -120,12 +123,12 @@ public final class CrashUtils {
     }
 
     public static final class CrashInfo {
-        private UtilsBridge.FileHead mFileHeadProvider;
+        private KUtilsGuide.FileHead mFileHeadProvider;
         private Throwable mThrowable;
 
         private CrashInfo(String time, Throwable throwable) {
             mThrowable = throwable;
-            mFileHeadProvider = new UtilsBridge.FileHead("Crash");
+            mFileHeadProvider = new KUtilsGuide.FileHead("Crash");
             mFileHeadProvider.addFirst("Time Of Crash", time);
         }
 
@@ -144,7 +147,7 @@ public final class CrashUtils {
         @Override
         public String toString() {
             return mFileHeadProvider.toString() +
-                    UtilsBridge.getFullStackTrace(mThrowable);
+                    KUtilsGuide.getFullStackTrace(mThrowable);
         }
     }
 }

@@ -3,10 +3,10 @@ package kingwin.utils.gather.common;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.blankj.utilcode.constant.CacheConstants;
+
+import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,6 +21,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+
+import kingwin.utils.gather.KUtilsGuide;
+import kingwin.utils.gather.constant.CacheConstants;
 
 /**
  * <pre>
@@ -53,87 +56,87 @@ public final class CacheDiskUtils implements CacheConstants {
     private       DiskCacheManager mDiskCacheManager;
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.CacheDiskUtils} instance.
+     * Return the single {@link kingwin.utils.gather.common.CacheDiskUtils} instance.
      * <p>cache directory: /data/data/package/cache/cacheUtils</p>
      * <p>cache size: unlimited</p>
      * <p>cache count: unlimited</p>
      *
-     * @return the single {@link com.blankj.utilcode.util.CacheDiskUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.CacheDiskUtils} instance
      */
-    public static com.blankj.utilcode.util.CacheDiskUtils getInstance() {
+    public static CacheDiskUtils getInstance() {
         return getInstance("", DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
     }
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.CacheDiskUtils} instance.
+     * Return the single {@link kingwin.utils.gather.common.CacheDiskUtils} instance.
      * <p>cache directory: /data/data/package/cache/cacheUtils</p>
      * <p>cache size: unlimited</p>
      * <p>cache count: unlimited</p>
      *
      * @param cacheName The name of cache.
-     * @return the single {@link com.blankj.utilcode.util.CacheDiskUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.CacheDiskUtils} instance
      */
-    public static com.blankj.utilcode.util.CacheDiskUtils getInstance(final String cacheName) {
+    public static CacheDiskUtils getInstance(final String cacheName) {
         return getInstance(cacheName, DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
     }
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.CacheDiskUtils} instance.
+     * Return the single {@link kingwin.utils.gather.common.CacheDiskUtils} instance.
      * <p>cache directory: /data/data/package/cache/cacheUtils</p>
      *
      * @param maxSize  The max size of cache, in bytes.
      * @param maxCount The max count of cache.
-     * @return the single {@link com.blankj.utilcode.util.CacheDiskUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.CacheDiskUtils} instance
      */
-    public static com.blankj.utilcode.util.CacheDiskUtils getInstance(final long maxSize, final int maxCount) {
+    public static CacheDiskUtils getInstance(final long maxSize, final int maxCount) {
         return getInstance("", maxSize, maxCount);
     }
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.CacheDiskUtils} instance.
+     * Return the single {@link kingwin.utils.gather.common.CacheDiskUtils} instance.
      * <p>cache directory: /data/data/package/cache/cacheName</p>
      *
      * @param cacheName The name of cache.
      * @param maxSize   The max size of cache, in bytes.
      * @param maxCount  The max count of cache.
-     * @return the single {@link com.blankj.utilcode.util.CacheDiskUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.CacheDiskUtils} instance
      */
-    public static com.blankj.utilcode.util.CacheDiskUtils getInstance(String cacheName, final long maxSize, final int maxCount) {
-        if (UtilsBridge.isSpace(cacheName)) cacheName = "cacheUtils";
-        File file = new File(Utils.getApp().getCacheDir(), cacheName);
+    public static CacheDiskUtils getInstance(String cacheName, final long maxSize, final int maxCount) {
+        if (KUtilsGuide.isSpace(cacheName)) cacheName = "cacheUtils";
+        File file = new File(KUtilsGuide.getApp().getCacheDir(), cacheName);
         return getInstance(file, maxSize, maxCount);
     }
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.CacheDiskUtils} instance.
+     * Return the single {@link kingwin.utils.gather.common.CacheDiskUtils} instance.
      * <p>cache size: unlimited</p>
      * <p>cache count: unlimited</p>
      *
      * @param cacheDir The directory of cache.
-     * @return the single {@link com.blankj.utilcode.util.CacheDiskUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.CacheDiskUtils} instance
      */
-    public static com.blankj.utilcode.util.CacheDiskUtils getInstance(@NonNull final File cacheDir) {
+    public static CacheDiskUtils getInstance(@NonNull final File cacheDir) {
         return getInstance(cacheDir, DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
     }
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.CacheDiskUtils} instance.
+     * Return the single {@link kingwin.utils.gather.common.CacheDiskUtils} instance.
      *
      * @param cacheDir The directory of cache.
      * @param maxSize  The max size of cache, in bytes.
      * @param maxCount The max count of cache.
-     * @return the single {@link com.blankj.utilcode.util.CacheDiskUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.CacheDiskUtils} instance
      */
-    public static com.blankj.utilcode.util.CacheDiskUtils getInstance(@NonNull final File cacheDir,
+    public static CacheDiskUtils getInstance(@NonNull final File cacheDir,
                                                                       final long maxSize,
                                                                       final int maxCount) {
         final String cacheKey = cacheDir.getAbsoluteFile() + "_" + maxSize + "_" + maxCount;
-        com.blankj.utilcode.util.CacheDiskUtils cache = CACHE_MAP.get(cacheKey);
+        CacheDiskUtils cache = CACHE_MAP.get(cacheKey);
         if (cache == null) {
-            synchronized (com.blankj.utilcode.util.CacheDiskUtils.class) {
+            synchronized (CacheDiskUtils.class) {
                 cache = CACHE_MAP.get(cacheKey);
                 if (cache == null) {
-                    cache = new com.blankj.utilcode.util.CacheDiskUtils(cacheKey, cacheDir, maxSize, maxCount);
+                    cache = new CacheDiskUtils(cacheKey, cacheDir, maxSize, maxCount);
                     CACHE_MAP.put(cacheKey, cache);
                 }
             }
@@ -202,7 +205,7 @@ public final class CacheDiskUtils implements CacheConstants {
         if (diskCacheManager == null) return;
         if (saveTime >= 0) value = DiskCacheHelper.newByteArrayWithTime(saveTime, value);
         File file = diskCacheManager.getFileBeforePut(key);
-        UtilsBridge.writeFileFromBytes(file, value);
+        KUtilsGuide.writeFileFromBytes(file, value);
         diskCacheManager.updateModify(file);
         diskCacheManager.put(file);
     }
@@ -238,7 +241,7 @@ public final class CacheDiskUtils implements CacheConstants {
         if (diskCacheManager == null) return defaultValue;
         final File file = diskCacheManager.getFileIfExists(key);
         if (file == null) return defaultValue;
-        byte[] data = UtilsBridge.readFile2Bytes(file);
+        byte[] data = KUtilsGuide.readFile2Bytes(file);
         if (DiskCacheHelper.isDue(data)) {
             diskCacheManager.removeByKey(key);
             return defaultValue;
@@ -269,7 +272,7 @@ public final class CacheDiskUtils implements CacheConstants {
      * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key, final String value, final int saveTime) {
-        realPutBytes(TYPE_STRING + key, UtilsBridge.string2Bytes(value), saveTime);
+        realPutBytes(TYPE_STRING + key, KUtilsGuide.string2Bytes(value), saveTime);
     }
 
     /**
@@ -292,7 +295,7 @@ public final class CacheDiskUtils implements CacheConstants {
     public String getString(@NonNull final String key, final String defaultValue) {
         byte[] bytes = realGetBytes(TYPE_STRING + key);
         if (bytes == null) return defaultValue;
-        return UtilsBridge.bytes2String(bytes);
+        return KUtilsGuide.bytes2String(bytes);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -319,7 +322,7 @@ public final class CacheDiskUtils implements CacheConstants {
     public void put(@NonNull final String key,
                     final JSONObject value,
                     final int saveTime) {
-        realPutBytes(TYPE_JSON_OBJECT + key, UtilsBridge.jsonObject2Bytes(value), saveTime);
+        realPutBytes(TYPE_JSON_OBJECT + key, KUtilsGuide.jsonObject2Bytes(value), saveTime);
     }
 
     /**
@@ -342,7 +345,7 @@ public final class CacheDiskUtils implements CacheConstants {
     public JSONObject getJSONObject(@NonNull final String key, final JSONObject defaultValue) {
         byte[] bytes = realGetBytes(TYPE_JSON_OBJECT + key);
         if (bytes == null) return defaultValue;
-        return UtilsBridge.bytes2JSONObject(bytes);
+        return KUtilsGuide.bytes2JSONObject(bytes);
     }
 
 
@@ -368,7 +371,7 @@ public final class CacheDiskUtils implements CacheConstants {
      * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key, final JSONArray value, final int saveTime) {
-        realPutBytes(TYPE_JSON_ARRAY + key, UtilsBridge.jsonArray2Bytes(value), saveTime);
+        realPutBytes(TYPE_JSON_ARRAY + key, KUtilsGuide.jsonArray2Bytes(value), saveTime);
     }
 
     /**
@@ -391,7 +394,7 @@ public final class CacheDiskUtils implements CacheConstants {
     public JSONArray getJSONArray(@NonNull final String key, final JSONArray defaultValue) {
         byte[] bytes = realGetBytes(TYPE_JSON_ARRAY + key);
         if (bytes == null) return defaultValue;
-        return UtilsBridge.bytes2JSONArray(bytes);
+        return KUtilsGuide.bytes2JSONArray(bytes);
     }
 
 
@@ -417,7 +420,7 @@ public final class CacheDiskUtils implements CacheConstants {
      * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key, final Bitmap value, final int saveTime) {
-        realPutBytes(TYPE_BITMAP + key, UtilsBridge.bitmap2Bytes(value), saveTime);
+        realPutBytes(TYPE_BITMAP + key, KUtilsGuide.bitmap2Bytes(value), saveTime);
     }
 
     /**
@@ -440,7 +443,7 @@ public final class CacheDiskUtils implements CacheConstants {
     public Bitmap getBitmap(@NonNull final String key, final Bitmap defaultValue) {
         byte[] bytes = realGetBytes(TYPE_BITMAP + key);
         if (bytes == null) return defaultValue;
-        return UtilsBridge.bytes2Bitmap(bytes);
+        return KUtilsGuide.bytes2Bitmap(bytes);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -465,7 +468,7 @@ public final class CacheDiskUtils implements CacheConstants {
      * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key, final Drawable value, final int saveTime) {
-        realPutBytes(TYPE_DRAWABLE + key, UtilsBridge.drawable2Bytes(value), saveTime);
+        realPutBytes(TYPE_DRAWABLE + key, KUtilsGuide.drawable2Bytes(value), saveTime);
     }
 
     /**
@@ -488,7 +491,7 @@ public final class CacheDiskUtils implements CacheConstants {
     public Drawable getDrawable(@NonNull final String key, final Drawable defaultValue) {
         byte[] bytes = realGetBytes(TYPE_DRAWABLE + key);
         if (bytes == null) return defaultValue;
-        return UtilsBridge.bytes2Drawable(bytes);
+        return KUtilsGuide.bytes2Drawable(bytes);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -513,7 +516,7 @@ public final class CacheDiskUtils implements CacheConstants {
      * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key, final Parcelable value, final int saveTime) {
-        realPutBytes(TYPE_PARCELABLE + key, UtilsBridge.parcelable2Bytes(value), saveTime);
+        realPutBytes(TYPE_PARCELABLE + key, KUtilsGuide.parcelable2Bytes(value), saveTime);
     }
 
     /**
@@ -543,7 +546,7 @@ public final class CacheDiskUtils implements CacheConstants {
                                final T defaultValue) {
         byte[] bytes = realGetBytes(TYPE_PARCELABLE + key);
         if (bytes == null) return defaultValue;
-        return UtilsBridge.bytes2Parcelable(bytes, creator);
+        return KUtilsGuide.bytes2Parcelable(bytes, creator);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -568,7 +571,7 @@ public final class CacheDiskUtils implements CacheConstants {
      * @param saveTime The save time of cache, in seconds.
      */
     public void put(@NonNull final String key, final Serializable value, final int saveTime) {
-        realPutBytes(TYPE_SERIALIZABLE + key, UtilsBridge.serializable2Bytes(value), saveTime);
+        realPutBytes(TYPE_SERIALIZABLE + key, KUtilsGuide.serializable2Bytes(value), saveTime);
     }
 
     /**
@@ -591,7 +594,7 @@ public final class CacheDiskUtils implements CacheConstants {
     public Object getSerializable(@NonNull final String key, final Object defaultValue) {
         byte[] bytes = realGetBytes(TYPE_SERIALIZABLE + key);
         if (bytes == null) return defaultValue;
-        return UtilsBridge.bytes2Object(bytes);
+        return KUtilsGuide.bytes2Object(bytes);
     }
 
     /**

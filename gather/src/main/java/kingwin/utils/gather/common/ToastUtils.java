@@ -12,16 +12,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.CallSuper;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
-import android.support.annotation.StringRes;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -34,12 +24,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.R;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringDef;
+import androidx.annotation.StringRes;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
+
+import kingwin.utils.gather.KUtilsGuide;
+import kingwin.utils.gather.R;
 
 /**
  * <pre>
@@ -62,7 +65,7 @@ public final class ToastUtils {
     private static final int        COLOR_DEFAULT = 0xFEFFFFFF;
     private static final String NULL          = "toast null";
     private static final String NOTHING       = "toast nothing";
-    private static final com.blankj.utilcode.util.ToastUtils DEFAULT_MAKER = make();
+    private static final ToastUtils DEFAULT_MAKER = make();
 
     private static WeakReference<IToast> sWeakToast;
 
@@ -81,19 +84,19 @@ public final class ToastUtils {
     /**
      * Make a toast.
      *
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public static com.blankj.utilcode.util.ToastUtils make() {
-        return new com.blankj.utilcode.util.ToastUtils();
+    public static ToastUtils make() {
+        return new ToastUtils();
     }
 
     /**
      * @param mode The mode.
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setMode(@MODE String mode) {
+    public final ToastUtils setMode(@MODE String mode) {
         mMode = mode;
         return this;
     }
@@ -104,10 +107,10 @@ public final class ToastUtils {
      * @param gravity The gravity.
      * @param xOffset X-axis offset, in pixel.
      * @param yOffset Y-axis offset, in pixel.
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setGravity(final int gravity, final int xOffset, final int yOffset) {
+    public final ToastUtils setGravity(final int gravity, final int xOffset, final int yOffset) {
         mGravity = gravity;
         mXOffset = xOffset;
         mYOffset = yOffset;
@@ -118,10 +121,10 @@ public final class ToastUtils {
      * Set the color of background.
      *
      * @param backgroundColor The color of background.
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setBgColor(@ColorInt final int backgroundColor) {
+    public final ToastUtils setBgColor(@ColorInt final int backgroundColor) {
         mBgColor = backgroundColor;
         return this;
     }
@@ -130,10 +133,10 @@ public final class ToastUtils {
      * Set the resource of background.
      *
      * @param bgResource The resource of background.
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setBgResource(@DrawableRes final int bgResource) {
+    public final ToastUtils setBgResource(@DrawableRes final int bgResource) {
         mBgResource = bgResource;
         return this;
     }
@@ -142,10 +145,10 @@ public final class ToastUtils {
      * Set the text color of toast.
      *
      * @param msgColor The text color of toast.
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setTextColor(@ColorInt final int msgColor) {
+    public final ToastUtils setTextColor(@ColorInt final int msgColor) {
         mTextColor = msgColor;
         return this;
     }
@@ -154,10 +157,10 @@ public final class ToastUtils {
      * Set the text size of toast.
      *
      * @param textSize The text size of toast.
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setTextSize(final int textSize) {
+    public final ToastUtils setTextSize(final int textSize) {
         mTextSize = textSize;
         return this;
     }
@@ -165,10 +168,10 @@ public final class ToastUtils {
     /**
      * Set the toast for a long period of time.
      *
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setDurationIsLong(boolean isLong) {
+    public final ToastUtils setDurationIsLong(boolean isLong) {
         this.isLong = isLong;
         return this;
     }
@@ -177,21 +180,21 @@ public final class ToastUtils {
      * Set the left icon of toast.
      *
      * @param resId The left icon resource identifier.
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setLeftIcon(@DrawableRes int resId) {
-        return setLeftIcon(ContextCompat.getDrawable(Utils.getApp(), resId));
+    public final ToastUtils setLeftIcon(@DrawableRes int resId) {
+        return setLeftIcon(ContextCompat.getDrawable(KUtilsGuide.getApp(), resId));
     }
 
     /**
      * Set the left icon of toast.
      *
      * @param drawable The left icon drawable.
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setLeftIcon(@Nullable Drawable drawable) {
+    public final ToastUtils setLeftIcon(@Nullable Drawable drawable) {
         mIcons[0] = drawable;
         return this;
     }
@@ -200,21 +203,21 @@ public final class ToastUtils {
      * Set the top icon of toast.
      *
      * @param resId The top icon resource identifier.
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setTopIcon(@DrawableRes int resId) {
-        return setTopIcon(ContextCompat.getDrawable(Utils.getApp(), resId));
+    public final ToastUtils setTopIcon(@DrawableRes int resId) {
+        return setTopIcon(ContextCompat.getDrawable(KUtilsGuide.getApp(), resId));
     }
 
     /**
      * Set the top icon of toast.
      *
      * @param drawable The top icon drawable.
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setTopIcon(@Nullable Drawable drawable) {
+    public final ToastUtils setTopIcon(@Nullable Drawable drawable) {
         mIcons[1] = drawable;
         return this;
     }
@@ -223,21 +226,21 @@ public final class ToastUtils {
      * Set the right icon of toast.
      *
      * @param resId The right icon resource identifier.
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setRightIcon(@DrawableRes int resId) {
-        return setRightIcon(ContextCompat.getDrawable(Utils.getApp(), resId));
+    public final ToastUtils setRightIcon(@DrawableRes int resId) {
+        return setRightIcon(ContextCompat.getDrawable(KUtilsGuide.getApp(), resId));
     }
 
     /**
      * Set the right icon of toast.
      *
      * @param drawable The right icon drawable.
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setRightIcon(@Nullable Drawable drawable) {
+    public final ToastUtils setRightIcon(@Nullable Drawable drawable) {
         mIcons[2] = drawable;
         return this;
     }
@@ -246,21 +249,21 @@ public final class ToastUtils {
      * Set the left bottom of toast.
      *
      * @param resId The bottom icon resource identifier.
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setBottomIcon(int resId) {
-        return setBottomIcon(ContextCompat.getDrawable(Utils.getApp(), resId));
+    public final ToastUtils setBottomIcon(int resId) {
+        return setBottomIcon(ContextCompat.getDrawable(KUtilsGuide.getApp(), resId));
     }
 
     /**
      * Set the bottom icon of toast.
      *
      * @param drawable The bottom icon drawable.
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setBottomIcon(@Nullable Drawable drawable) {
+    public final ToastUtils setBottomIcon(@Nullable Drawable drawable) {
         mIcons[3] = drawable;
         return this;
     }
@@ -268,21 +271,21 @@ public final class ToastUtils {
     /**
      * Set not use system toast.
      *
-     * @return the single {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public final com.blankj.utilcode.util.ToastUtils setNotUseSystemToast() {
+    public final ToastUtils setNotUseSystemToast() {
         isNotUseSystemToast = true;
         return this;
     }
 
     /**
-     * Return the default {@link com.blankj.utilcode.util.ToastUtils} instance.
+     * Return the default {@link kingwin.utils.gather.common.ToastUtils} instance.
      *
-     * @return the default {@link com.blankj.utilcode.util.ToastUtils} instance
+     * @return the default {@link kingwin.utils.gather.common.ToastUtils} instance
      */
     @NonNull
-    public static com.blankj.utilcode.util.ToastUtils getDefaultMaker() {
+    public static ToastUtils getDefaultMaker() {
         return DEFAULT_MAKER;
     }
 
@@ -301,7 +304,7 @@ public final class ToastUtils {
      * @param resId The resource id for text.
      */
     public final void show(@StringRes final int resId) {
-        show(UtilsBridge.getString(resId), getDuration(), this);
+        show(KUtilsGuide.getString(resId), getDuration(), this);
     }
 
     /**
@@ -311,7 +314,7 @@ public final class ToastUtils {
      * @param args  The args.
      */
     public final void show(@StringRes final int resId, final Object... args) {
-        show(UtilsBridge.getString(resId, args), getDuration(), this);
+        show(KUtilsGuide.getString(resId, args), getDuration(), this);
     }
 
     /**
@@ -321,7 +324,7 @@ public final class ToastUtils {
      * @param args   The args.
      */
     public final void show(@Nullable final String format, final Object... args) {
-        show(UtilsBridge.format(format, args), getDuration(), this);
+        show(KUtilsGuide.format(format, args), getDuration(), this);
     }
 
     /**
@@ -341,7 +344,7 @@ public final class ToastUtils {
             return null;
         }
 
-        View toastView = UtilsBridge.layoutId2View(R.layout.utils_toast_view);
+        View toastView = KUtilsGuide.layoutId2View(R.layout.utils_toast_view);
         TextView messageTv = toastView.findViewById(android.R.id.message);
         if (MODE.DARK.equals(mMode)) {
             GradientDrawable bg = (GradientDrawable) toastView.getBackground().mutate();
@@ -388,7 +391,7 @@ public final class ToastUtils {
      * @param resId The resource id for text.
      */
     public static void showShort(@StringRes final int resId) {
-        show(UtilsBridge.getString(resId), Toast.LENGTH_SHORT, DEFAULT_MAKER);
+        show(KUtilsGuide.getString(resId), Toast.LENGTH_SHORT, DEFAULT_MAKER);
     }
 
     /**
@@ -398,7 +401,7 @@ public final class ToastUtils {
      * @param args  The args.
      */
     public static void showShort(@StringRes final int resId, final Object... args) {
-        show(UtilsBridge.getString(resId, args), Toast.LENGTH_SHORT, DEFAULT_MAKER);
+        show(KUtilsGuide.getString(resId, args), Toast.LENGTH_SHORT, DEFAULT_MAKER);
     }
 
     /**
@@ -408,7 +411,7 @@ public final class ToastUtils {
      * @param args   The args.
      */
     public static void showShort(@Nullable final String format, final Object... args) {
-        show(UtilsBridge.format(format, args), Toast.LENGTH_SHORT, DEFAULT_MAKER);
+        show(KUtilsGuide.format(format, args), Toast.LENGTH_SHORT, DEFAULT_MAKER);
     }
 
     /**
@@ -426,7 +429,7 @@ public final class ToastUtils {
      * @param resId The resource id for text.
      */
     public static void showLong(@StringRes final int resId) {
-        show(UtilsBridge.getString(resId), Toast.LENGTH_LONG, DEFAULT_MAKER);
+        show(KUtilsGuide.getString(resId), Toast.LENGTH_LONG, DEFAULT_MAKER);
     }
 
     /**
@@ -436,7 +439,7 @@ public final class ToastUtils {
      * @param args  The args.
      */
     public static void showLong(@StringRes final int resId, final Object... args) {
-        show(UtilsBridge.getString(resId), Toast.LENGTH_LONG, DEFAULT_MAKER);
+        show(KUtilsGuide.getString(resId), Toast.LENGTH_LONG, DEFAULT_MAKER);
     }
 
     /**
@@ -446,18 +449,18 @@ public final class ToastUtils {
      * @param args   The args.
      */
     public static void showLong(@Nullable final String format, final Object... args) {
-        show(UtilsBridge.format(format, args), Toast.LENGTH_LONG, DEFAULT_MAKER);
+        show(KUtilsGuide.format(format, args), Toast.LENGTH_LONG, DEFAULT_MAKER);
     }
 
     /**
      * Cancel the toast.
      */
     public static void cancel() {
-        UtilsBridge.runOnUiThread(new Runnable() {
+        KUtilsGuide.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (sWeakToast != null) {
-                    final IToast iToast = com.blankj.utilcode.util.ToastUtils.sWeakToast.get();
+                    final IToast iToast = ToastUtils.sWeakToast.get();
                     if (iToast != null) {
                         iToast.cancel();
                     }
@@ -467,24 +470,24 @@ public final class ToastUtils {
         });
     }
 
-    private static void show(@Nullable final CharSequence text, final int duration, final com.blankj.utilcode.util.ToastUtils utils) {
+    private static void show(@Nullable final CharSequence text, final int duration, final ToastUtils utils) {
         show(null, getToastFriendlyText(text), duration, utils);
     }
 
-    private static void show(@NonNull final View view, final int duration, final com.blankj.utilcode.util.ToastUtils utils) {
+    private static void show(@NonNull final View view, final int duration, final ToastUtils utils) {
         show(view, null, duration, utils);
     }
 
     private static void show(@Nullable final View view,
                              @Nullable final CharSequence text,
                              final int duration,
-                             @NonNull final com.blankj.utilcode.util.ToastUtils utils) {
-        UtilsBridge.runOnUiThread(new Runnable() {
+                             @NonNull final ToastUtils utils) {
+        KUtilsGuide.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 cancel();
                 IToast iToast = newToast(utils);
-                com.blankj.utilcode.util.ToastUtils.sWeakToast = new WeakReference<>(iToast);
+                ToastUtils.sWeakToast = new WeakReference<>(iToast);
                 if (view != null) {
                     iToast.setToastView(view);
                 } else {
@@ -505,13 +508,13 @@ public final class ToastUtils {
         return text;
     }
 
-    private static IToast newToast(com.blankj.utilcode.util.ToastUtils toastUtils) {
+    private static IToast newToast(ToastUtils toastUtils) {
         if (!toastUtils.isNotUseSystemToast) {
-            if (NotificationManagerCompat.from(Utils.getApp()).areNotificationsEnabled()) {
+            if (NotificationManagerCompat.from(KUtilsGuide.getApp()).areNotificationsEnabled()) {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                     return new SystemToast(toastUtils);
                 }
-                if (!UtilsBridge.isGrantedDrawOverlays()) {
+                if (!KUtilsGuide.isGrantedDrawOverlays()) {
                     return new SystemToast(toastUtils);
                 }
             }
@@ -520,7 +523,7 @@ public final class ToastUtils {
         // not use system or notification disable
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
             return new WindowManagerToast(toastUtils, WindowManager.LayoutParams.TYPE_TOAST);
-        } else if (UtilsBridge.isGrantedDrawOverlays()) {
+        } else if (KUtilsGuide.isGrantedDrawOverlays()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 return new WindowManagerToast(toastUtils, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
             } else {
@@ -532,7 +535,7 @@ public final class ToastUtils {
 
     static final class SystemToast extends AbsToast {
 
-        SystemToast(com.blankj.utilcode.util.ToastUtils toastUtils) {
+        SystemToast(ToastUtils toastUtils) {
             super(toastUtils);
             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1) {
                 try {
@@ -584,14 +587,14 @@ public final class ToastUtils {
 
         private WindowManager.LayoutParams mParams;
 
-        WindowManagerToast(com.blankj.utilcode.util.ToastUtils toastUtils, int type) {
+        WindowManagerToast(ToastUtils toastUtils, int type) {
             super(toastUtils);
             mParams = new WindowManager.LayoutParams();
-            mWM = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
+            mWM = (WindowManager) KUtilsGuide.getApp().getSystemService(Context.WINDOW_SERVICE);
             mParams.type = type;
         }
 
-        WindowManagerToast(com.blankj.utilcode.util.ToastUtils toastUtils, WindowManager wm, int type) {
+        WindowManagerToast(ToastUtils toastUtils, WindowManager wm, int type) {
             super(toastUtils);
             mParams = new WindowManager.LayoutParams();
             mWM = wm;
@@ -609,7 +612,7 @@ public final class ToastUtils {
             mParams.flags = WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                     | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                     | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
-            mParams.packageName = Utils.getApp().getPackageName();
+            mParams.packageName = KUtilsGuide.getApp().getPackageName();
 
             mParams.gravity = mToast.getGravity();
             if ((mParams.gravity & Gravity.HORIZONTAL_GRAVITY_MASK) == Gravity.FILL_HORIZONTAL) {
@@ -630,7 +633,7 @@ public final class ToastUtils {
                 }
             } catch (Exception ignored) {/**/}
 
-            UtilsBridge.runOnUiThreadDelayed(new Runnable() {
+            KUtilsGuide.runOnUiThreadDelayed(new Runnable() {
                 @Override
                 public void run() {
                     cancel();
@@ -654,24 +657,24 @@ public final class ToastUtils {
 
         private static int sShowingIndex = 0;
 
-        private Utils.ActivityLifecycleCallbacks mActivityLifecycleCallbacks;
+        private KUtilsGuide.ActivityLifecycleCallbacks mActivityLifecycleCallbacks;
         private IToast                           iToast;
 
-        ActivityToast(com.blankj.utilcode.util.ToastUtils toastUtils) {
+        ActivityToast(ToastUtils toastUtils) {
             super(toastUtils);
         }
 
         @Override
         public void show(int duration) {
             if (mToast == null) return;
-            if (!UtilsBridge.isAppForeground()) {
+            if (!KUtilsGuide.isAppForeground()) {
                 // try to use system toast
                 iToast = showSystemToast(duration);
                 return;
             }
             boolean hasAliveActivity = false;
-            for (final Activity activity : UtilsBridge.getActivityList()) {
-                if (!UtilsBridge.isActivityAlive(activity)) {
+            for (final Activity activity : KUtilsGuide.getActivityList()) {
+                if (!KUtilsGuide.isActivityAlive(activity)) {
                     continue;
                 }
                 if (!hasAliveActivity) {
@@ -683,7 +686,7 @@ public final class ToastUtils {
             }
             if (hasAliveActivity) {
                 registerLifecycleCallback();
-                UtilsBridge.runOnUiThreadDelayed(new Runnable() {
+                KUtilsGuide.runOnUiThreadDelayed(new Runnable() {
                     @Override
                     public void run() {
                         cancel();
@@ -701,8 +704,8 @@ public final class ToastUtils {
         public void cancel() {
             if (isShowing()) {
                 unregisterLifecycleCallback();
-                for (Activity activity : UtilsBridge.getActivityList()) {
-                    if (!UtilsBridge.isActivityAlive(activity)) {
+                for (Activity activity : KUtilsGuide.getActivityList()) {
+                    if (!KUtilsGuide.isActivityAlive(activity)) {
                         continue;
                     }
                     final Window window = activity.getWindow();
@@ -747,8 +750,8 @@ public final class ToastUtils {
                         ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
                 );
                 lp.gravity = mToast.getGravity();
-                lp.bottomMargin = mToast.getYOffset() + UtilsBridge.getNavBarHeight();
-                lp.topMargin = mToast.getYOffset() + UtilsBridge.getStatusBarHeight();
+                lp.bottomMargin = mToast.getYOffset() + KUtilsGuide.getNavBarHeight();
+                lp.topMargin = mToast.getYOffset() + KUtilsGuide.getStatusBarHeight();
                 lp.leftMargin = mToast.getXOffset();
                 View toastViewSnapshot = getToastViewSnapshot(index);
                 if (useAnim) {
@@ -761,7 +764,7 @@ public final class ToastUtils {
 
         private void registerLifecycleCallback() {
             final int index = sShowingIndex;
-            mActivityLifecycleCallbacks = new Utils.ActivityLifecycleCallbacks() {
+            mActivityLifecycleCallbacks = new KUtilsGuide.ActivityLifecycleCallbacks() {
                 @Override
                 public void onActivityCreated(@NonNull Activity activity) {
                     if (isShowing()) {
@@ -769,11 +772,11 @@ public final class ToastUtils {
                     }
                 }
             };
-            UtilsBridge.addActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
+            KUtilsGuide.addActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
         }
 
         private void unregisterLifecycleCallback() {
-            UtilsBridge.removeActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
+            KUtilsGuide.removeActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
             mActivityLifecycleCallbacks = null;
         }
 
@@ -785,11 +788,11 @@ public final class ToastUtils {
     static abstract class AbsToast implements IToast {
 
         protected Toast mToast;
-        protected com.blankj.utilcode.util.ToastUtils mToastUtils;
+        protected ToastUtils mToastUtils;
         protected View mToastView;
 
-        AbsToast(com.blankj.utilcode.util.ToastUtils toastUtils) {
-            mToast = new Toast(Utils.getApp());
+        AbsToast(ToastUtils toastUtils) {
+            mToast = new Toast(KUtilsGuide.getApp());
             mToastUtils = toastUtils;
 
             if (mToastUtils.mGravity != -1 || mToastUtils.mXOffset != -1 || mToastUtils.mYOffset != -1) {
@@ -814,7 +817,7 @@ public final class ToastUtils {
 
             mToastView = mToast.getView();
             if (mToastView == null || mToastView.findViewById(android.R.id.message) == null) {
-                setToastView(UtilsBridge.layoutId2View(R.layout.utils_toast_view));
+                setToastView(KUtilsGuide.layoutId2View(R.layout.utils_toast_view));
             }
 
             TextView messageTv = mToastView.findViewById(android.R.id.message);
@@ -830,7 +833,7 @@ public final class ToastUtils {
         }
 
         private void processRtlIfNeed() {
-            if (UtilsBridge.isLayoutRtl()) {
+            if (KUtilsGuide.isLayoutRtl()) {
                 setToastView(getToastViewSnapshot(-1));
             }
         }
@@ -866,8 +869,8 @@ public final class ToastUtils {
         }
 
         View getToastViewSnapshot(final int index) {
-            Bitmap bitmap = UtilsBridge.view2Bitmap(mToastView);
-            ImageView toastIv = new ImageView(Utils.getApp());
+            Bitmap bitmap = KUtilsGuide.view2Bitmap(mToastView);
+            ImageView toastIv = new ImageView(KUtilsGuide.getApp());
             toastIv.setTag(TAG_TOAST + index);
             toastIv.setImageBitmap(bitmap);
             return toastIv;
@@ -887,7 +890,7 @@ public final class ToastUtils {
 
     public static final class UtilsMaxWidthRelativeLayout extends RelativeLayout {
 
-        private static final int SPACING = UtilsBridge.dp2px(80);
+        private static final int SPACING = KUtilsGuide.dp2px(80);
 
         public UtilsMaxWidthRelativeLayout(Context context) {
             super(context);
@@ -903,7 +906,7 @@ public final class ToastUtils {
 
         @Override
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            int widthMaxSpec = MeasureSpec.makeMeasureSpec(UtilsBridge.getAppScreenWidth() - SPACING, MeasureSpec.AT_MOST);
+            int widthMaxSpec = MeasureSpec.makeMeasureSpec(KUtilsGuide.getAppScreenWidth() - SPACING, MeasureSpec.AT_MOST);
             super.onMeasure(widthMaxSpec, heightMeasureSpec);
         }
     }

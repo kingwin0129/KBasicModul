@@ -23,6 +23,8 @@ import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import kingwin.utils.gather.KUtilsGuide;
+
 /**
  * <pre>
  *     author: Blankj
@@ -59,7 +61,7 @@ public final class EncryptUtils {
      * @return the hex string of MD2 encryption
      */
     public static String encryptMD2ToString(final byte[] data) {
-        return UtilsBridge.bytes2HexString(encryptMD2(data));
+        return KUtilsGuide.bytes2HexString(encryptMD2(data));
     }
 
     /**
@@ -92,9 +94,9 @@ public final class EncryptUtils {
      */
     public static String encryptMD5ToString(final String data, final String salt) {
         if (data == null && salt == null) return "";
-        if (salt == null) return UtilsBridge.bytes2HexString(encryptMD5(data.getBytes()));
-        if (data == null) return UtilsBridge.bytes2HexString(encryptMD5(salt.getBytes()));
-        return UtilsBridge.bytes2HexString(encryptMD5((data + salt).getBytes()));
+        if (salt == null) return KUtilsGuide.bytes2HexString(encryptMD5(data.getBytes()));
+        if (data == null) return KUtilsGuide.bytes2HexString(encryptMD5(salt.getBytes()));
+        return KUtilsGuide.bytes2HexString(encryptMD5((data + salt).getBytes()));
     }
 
     /**
@@ -104,7 +106,7 @@ public final class EncryptUtils {
      * @return the hex string of MD5 encryption
      */
     public static String encryptMD5ToString(final byte[] data) {
-        return UtilsBridge.bytes2HexString(encryptMD5(data));
+        return KUtilsGuide.bytes2HexString(encryptMD5(data));
     }
 
     /**
@@ -116,12 +118,12 @@ public final class EncryptUtils {
      */
     public static String encryptMD5ToString(final byte[] data, final byte[] salt) {
         if (data == null && salt == null) return "";
-        if (salt == null) return UtilsBridge.bytes2HexString(encryptMD5(data));
-        if (data == null) return UtilsBridge.bytes2HexString(encryptMD5(salt));
+        if (salt == null) return KUtilsGuide.bytes2HexString(encryptMD5(data));
+        if (data == null) return KUtilsGuide.bytes2HexString(encryptMD5(salt));
         byte[] dataSalt = new byte[data.length + salt.length];
         System.arraycopy(data, 0, dataSalt, 0, data.length);
         System.arraycopy(salt, 0, dataSalt, data.length, salt.length);
-        return UtilsBridge.bytes2HexString(encryptMD5(dataSalt));
+        return KUtilsGuide.bytes2HexString(encryptMD5(dataSalt));
     }
 
     /**
@@ -141,7 +143,7 @@ public final class EncryptUtils {
      * @return the hex string of file's MD5 encryption
      */
     public static String encryptMD5File2String(final String filePath) {
-        File file = UtilsBridge.isSpace(filePath) ? null : new File(filePath);
+        File file = KUtilsGuide.isSpace(filePath) ? null : new File(filePath);
         return encryptMD5File2String(file);
     }
 
@@ -152,7 +154,7 @@ public final class EncryptUtils {
      * @return the bytes of file's MD5 encryption
      */
     public static byte[] encryptMD5File(final String filePath) {
-        File file = UtilsBridge.isSpace(filePath) ? null : new File(filePath);
+        File file = KUtilsGuide.isSpace(filePath) ? null : new File(filePath);
         return encryptMD5File(file);
     }
 
@@ -163,7 +165,7 @@ public final class EncryptUtils {
      * @return the hex string of file's MD5 encryption
      */
     public static String encryptMD5File2String(final File file) {
-        return UtilsBridge.bytes2HexString(encryptMD5File(file));
+        return KUtilsGuide.bytes2HexString(encryptMD5File(file));
     }
 
     /**
@@ -218,7 +220,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA1 encryption
      */
     public static String encryptSHA1ToString(final byte[] data) {
-        return UtilsBridge.bytes2HexString(encryptSHA1(data));
+        return KUtilsGuide.bytes2HexString(encryptSHA1(data));
     }
 
     /**
@@ -249,7 +251,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA224 encryption
      */
     public static String encryptSHA224ToString(final byte[] data) {
-        return UtilsBridge.bytes2HexString(encryptSHA224(data));
+        return KUtilsGuide.bytes2HexString(encryptSHA224(data));
     }
 
     /**
@@ -280,7 +282,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA256 encryption
      */
     public static String encryptSHA256ToString(final byte[] data) {
-        return UtilsBridge.bytes2HexString(encryptSHA256(data));
+        return KUtilsGuide.bytes2HexString(encryptSHA256(data));
     }
 
     /**
@@ -311,7 +313,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA384 encryption
      */
     public static String encryptSHA384ToString(final byte[] data) {
-        return UtilsBridge.bytes2HexString(encryptSHA384(data));
+        return KUtilsGuide.bytes2HexString(encryptSHA384(data));
     }
 
     /**
@@ -342,7 +344,7 @@ public final class EncryptUtils {
      * @return the hex string of SHA512 encryption
      */
     public static String encryptSHA512ToString(final byte[] data) {
-        return UtilsBridge.bytes2HexString(encryptSHA512(data));
+        return KUtilsGuide.bytes2HexString(encryptSHA512(data));
     }
 
     /**
@@ -362,7 +364,7 @@ public final class EncryptUtils {
      * @param algorithm The name of hash encryption.
      * @return the bytes of hash encryption
      */
-    static byte[] hashTemplate(final byte[] data, final String algorithm) {
+    public static byte[] hashTemplate(final byte[] data, final String algorithm) {
         if (data == null || data.length <= 0) return null;
         try {
             MessageDigest md = MessageDigest.getInstance(algorithm);
@@ -398,7 +400,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacMD5 encryption
      */
     public static String encryptHmacMD5ToString(final byte[] data, final byte[] key) {
-        return UtilsBridge.bytes2HexString(encryptHmacMD5(data, key));
+        return KUtilsGuide.bytes2HexString(encryptHmacMD5(data, key));
     }
 
     /**
@@ -432,7 +434,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA1 encryption
      */
     public static String encryptHmacSHA1ToString(final byte[] data, final byte[] key) {
-        return UtilsBridge.bytes2HexString(encryptHmacSHA1(data, key));
+        return KUtilsGuide.bytes2HexString(encryptHmacSHA1(data, key));
     }
 
     /**
@@ -466,7 +468,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA224 encryption
      */
     public static String encryptHmacSHA224ToString(final byte[] data, final byte[] key) {
-        return UtilsBridge.bytes2HexString(encryptHmacSHA224(data, key));
+        return KUtilsGuide.bytes2HexString(encryptHmacSHA224(data, key));
     }
 
     /**
@@ -500,7 +502,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA256 encryption
      */
     public static String encryptHmacSHA256ToString(final byte[] data, final byte[] key) {
-        return UtilsBridge.bytes2HexString(encryptHmacSHA256(data, key));
+        return KUtilsGuide.bytes2HexString(encryptHmacSHA256(data, key));
     }
 
     /**
@@ -534,7 +536,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA384 encryption
      */
     public static String encryptHmacSHA384ToString(final byte[] data, final byte[] key) {
-        return UtilsBridge.bytes2HexString(encryptHmacSHA384(data, key));
+        return KUtilsGuide.bytes2HexString(encryptHmacSHA384(data, key));
     }
 
     /**
@@ -568,7 +570,7 @@ public final class EncryptUtils {
      * @return the hex string of HmacSHA512 encryption
      */
     public static String encryptHmacSHA512ToString(final byte[] data, final byte[] key) {
-        return UtilsBridge.bytes2HexString(encryptHmacSHA512(data, key));
+        return KUtilsGuide.bytes2HexString(encryptHmacSHA512(data, key));
     }
 
     /**
@@ -623,7 +625,7 @@ public final class EncryptUtils {
                                            final byte[] key,
                                            final String transformation,
                                            final byte[] iv) {
-        return UtilsBridge.base64Encode(encryptDES(data, key, transformation, iv));
+        return KUtilsGuide.base64Encode(encryptDES(data, key, transformation, iv));
     }
 
     /**
@@ -640,7 +642,7 @@ public final class EncryptUtils {
                                               final byte[] key,
                                               final String transformation,
                                               final byte[] iv) {
-        return UtilsBridge.bytes2HexString(encryptDES(data, key, transformation, iv));
+        return KUtilsGuide.bytes2HexString(encryptDES(data, key, transformation, iv));
     }
 
     /**
@@ -674,7 +676,7 @@ public final class EncryptUtils {
                                           final byte[] key,
                                           final String transformation,
                                           final byte[] iv) {
-        return decryptDES(UtilsBridge.base64Decode(data), key, transformation, iv);
+        return decryptDES(KUtilsGuide.base64Decode(data), key, transformation, iv);
     }
 
     /**
@@ -691,7 +693,7 @@ public final class EncryptUtils {
                                              final byte[] key,
                                              final String transformation,
                                              final byte[] iv) {
-        return decryptDES(UtilsBridge.hexString2Bytes(data), key, transformation, iv);
+        return decryptDES(KUtilsGuide.hexString2Bytes(data), key, transformation, iv);
     }
 
     /**
@@ -729,7 +731,7 @@ public final class EncryptUtils {
                                             final byte[] key,
                                             final String transformation,
                                             final byte[] iv) {
-        return UtilsBridge.base64Encode(encrypt3DES(data, key, transformation, iv));
+        return KUtilsGuide.base64Encode(encrypt3DES(data, key, transformation, iv));
     }
 
     /**
@@ -746,7 +748,7 @@ public final class EncryptUtils {
                                                final byte[] key,
                                                final String transformation,
                                                final byte[] iv) {
-        return UtilsBridge.bytes2HexString(encrypt3DES(data, key, transformation, iv));
+        return KUtilsGuide.bytes2HexString(encrypt3DES(data, key, transformation, iv));
     }
 
     /**
@@ -780,7 +782,7 @@ public final class EncryptUtils {
                                             final byte[] key,
                                             final String transformation,
                                             final byte[] iv) {
-        return decrypt3DES(UtilsBridge.base64Decode(data), key, transformation, iv);
+        return decrypt3DES(KUtilsGuide.base64Decode(data), key, transformation, iv);
     }
 
     /**
@@ -797,7 +799,7 @@ public final class EncryptUtils {
                                               final byte[] key,
                                               final String transformation,
                                               final byte[] iv) {
-        return decrypt3DES(UtilsBridge.hexString2Bytes(data), key, transformation, iv);
+        return decrypt3DES(KUtilsGuide.hexString2Bytes(data), key, transformation, iv);
     }
 
     /**
@@ -835,7 +837,7 @@ public final class EncryptUtils {
                                            final byte[] key,
                                            final String transformation,
                                            final byte[] iv) {
-        return UtilsBridge.base64Encode(encryptAES(data, key, transformation, iv));
+        return KUtilsGuide.base64Encode(encryptAES(data, key, transformation, iv));
     }
 
     /**
@@ -852,7 +854,7 @@ public final class EncryptUtils {
                                               final byte[] key,
                                               final String transformation,
                                               final byte[] iv) {
-        return UtilsBridge.bytes2HexString(encryptAES(data, key, transformation, iv));
+        return KUtilsGuide.bytes2HexString(encryptAES(data, key, transformation, iv));
     }
 
     /**
@@ -886,7 +888,7 @@ public final class EncryptUtils {
                                           final byte[] key,
                                           final String transformation,
                                           final byte[] iv) {
-        return decryptAES(UtilsBridge.base64Decode(data), key, transformation, iv);
+        return decryptAES(KUtilsGuide.base64Decode(data), key, transformation, iv);
     }
 
     /**
@@ -903,7 +905,7 @@ public final class EncryptUtils {
                                              final byte[] key,
                                              final String transformation,
                                              final byte[] iv) {
-        return decryptAES(UtilsBridge.hexString2Bytes(data), key, transformation, iv);
+        return decryptAES(KUtilsGuide.hexString2Bytes(data), key, transformation, iv);
     }
 
     /**
@@ -980,7 +982,7 @@ public final class EncryptUtils {
                                            final byte[] publicKey,
                                            final int keySize,
                                            final String transformation) {
-        return UtilsBridge.base64Encode(encryptRSA(data, publicKey, keySize, transformation));
+        return KUtilsGuide.base64Encode(encryptRSA(data, publicKey, keySize, transformation));
     }
 
     /**
@@ -996,7 +998,7 @@ public final class EncryptUtils {
                                               final byte[] publicKey,
                                               final int keySize,
                                               final String transformation) {
-        return UtilsBridge.bytes2HexString(encryptRSA(data, publicKey, keySize, transformation));
+        return KUtilsGuide.bytes2HexString(encryptRSA(data, publicKey, keySize, transformation));
     }
 
     /**
@@ -1028,7 +1030,7 @@ public final class EncryptUtils {
                                           final byte[] privateKey,
                                           final int keySize,
                                           final String transformation) {
-        return decryptRSA(UtilsBridge.base64Decode(data), privateKey, keySize, transformation);
+        return decryptRSA(KUtilsGuide.base64Decode(data), privateKey, keySize, transformation);
     }
 
     /**
@@ -1044,7 +1046,7 @@ public final class EncryptUtils {
                                              final byte[] privateKey,
                                              final int keySize,
                                              final String transformation) {
-        return decryptRSA(UtilsBridge.hexString2Bytes(data), privateKey, keySize, transformation);
+        return decryptRSA(KUtilsGuide.hexString2Bytes(data), privateKey, keySize, transformation);
     }
 
     /**

@@ -4,9 +4,12 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.RequiresApi;
+
+import androidx.annotation.RequiresApi;
 
 import java.io.File;
+
+import kingwin.utils.gather.KUtilsGuide;
 
 /**
  * <pre>
@@ -29,7 +32,7 @@ public final class CleanUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean cleanInternalCache() {
-        return UtilsBridge.deleteAllInDir(Utils.getApp().getCacheDir());
+        return KUtilsGuide.deleteAllInDir(KUtilsGuide.getApp().getCacheDir());
     }
 
     /**
@@ -39,7 +42,7 @@ public final class CleanUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean cleanInternalFiles() {
-        return UtilsBridge.deleteAllInDir(Utils.getApp().getFilesDir());
+        return KUtilsGuide.deleteAllInDir(KUtilsGuide.getApp().getFilesDir());
     }
 
     /**
@@ -49,7 +52,7 @@ public final class CleanUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean cleanInternalDbs() {
-        return UtilsBridge.deleteAllInDir(new File(Utils.getApp().getFilesDir().getParent(), "databases"));
+        return KUtilsGuide.deleteAllInDir(new File(KUtilsGuide.getApp().getFilesDir().getParent(), "databases"));
     }
 
     /**
@@ -60,7 +63,7 @@ public final class CleanUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean cleanInternalDbByName(final String dbName) {
-        return Utils.getApp().deleteDatabase(dbName);
+        return KUtilsGuide.getApp().deleteDatabase(dbName);
     }
 
     /**
@@ -70,7 +73,7 @@ public final class CleanUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean cleanInternalSp() {
-        return UtilsBridge.deleteAllInDir(new File(Utils.getApp().getFilesDir().getParent(), "shared_prefs"));
+        return KUtilsGuide.deleteAllInDir(new File(KUtilsGuide.getApp().getFilesDir().getParent(), "shared_prefs"));
     }
 
     /**
@@ -81,7 +84,7 @@ public final class CleanUtils {
      */
     public static boolean cleanExternalCache() {
         return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-                && UtilsBridge.deleteAllInDir(Utils.getApp().getExternalCacheDir());
+                && KUtilsGuide.deleteAllInDir(KUtilsGuide.getApp().getExternalCacheDir());
     }
 
     /**
@@ -91,12 +94,12 @@ public final class CleanUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean cleanCustomDir(final String dirPath) {
-        return UtilsBridge.deleteAllInDir(UtilsBridge.getFileByPath(dirPath));
+        return KUtilsGuide.deleteAllInDir(KUtilsGuide.getFileByPath(dirPath));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static void cleanAppUserData() {
-        ActivityManager am = (ActivityManager) Utils.getApp().getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager am = (ActivityManager) KUtilsGuide.getApp().getSystemService(Context.ACTIVITY_SERVICE);
         //noinspection ConstantConditions
         am.clearApplicationUserData();
     }

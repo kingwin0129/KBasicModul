@@ -1,12 +1,15 @@
 package kingwin.utils.gather.common;
 
 import android.graphics.Color;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.FloatRange;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.FloatRange;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
+import kingwin.utils.gather.KUtilsGuide;
 
 /**
  * <pre>
@@ -29,7 +32,7 @@ public final class ColorUtils {
      * @return a color associated with a particular resource ID
      */
     public static int getColor(@ColorRes int id) {
-        return ContextCompat.getColor(Utils.getApp(), id);
+        return ContextCompat.getColor(KUtilsGuide.getApp(), id);
     }
 
     /**

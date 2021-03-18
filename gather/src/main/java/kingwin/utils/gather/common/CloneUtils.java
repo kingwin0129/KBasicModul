@@ -2,6 +2,8 @@ package kingwin.utils.gather.common;
 
 import java.lang.reflect.Type;
 
+import kingwin.utils.gather.KUtilsGuide;
+
 /**
  * <pre>
  *     author: Blankj
@@ -26,7 +28,7 @@ public final class CloneUtils {
      */
     public static <T> T deepClone(final T data, final Type type) {
         try {
-            return UtilsBridge.fromJson(UtilsBridge.toJson(data), type);
+            return KUtilsGuide.fromJson(KUtilsGuide.toJson(data), type);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

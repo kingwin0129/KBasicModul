@@ -1,12 +1,13 @@
 package kingwin.utils.gather.common;
 
-import android.support.annotation.NonNull;
-import android.support.v4.util.LruCache;
+import androidx.annotation.NonNull;
+import androidx.collection.LruCache;
 
-import com.blankj.utilcode.constant.CacheConstants;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import kingwin.utils.gather.constant.CacheConstants;
 
 /**
  * <pre>
@@ -26,38 +27,38 @@ public final class CacheMemoryUtils implements CacheConstants {
     private final LruCache<String, CacheValue> mMemoryCache;
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.CacheMemoryUtils} instance.
+     * Return the single {@link kingwin.utils.gather.common.CacheMemoryUtils} instance.
      *
-     * @return the single {@link com.blankj.utilcode.util.CacheMemoryUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.CacheMemoryUtils} instance
      */
-    public static com.blankj.utilcode.util.CacheMemoryUtils getInstance() {
+    public static CacheMemoryUtils getInstance() {
         return getInstance(DEFAULT_MAX_COUNT);
     }
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.CacheMemoryUtils} instance.
+     * Return the single {@link kingwin.utils.gather.common.CacheMemoryUtils} instance.
      *
      * @param maxCount The max count of cache.
-     * @return the single {@link com.blankj.utilcode.util.CacheMemoryUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.CacheMemoryUtils} instance
      */
-    public static com.blankj.utilcode.util.CacheMemoryUtils getInstance(final int maxCount) {
+    public static CacheMemoryUtils getInstance(final int maxCount) {
         return getInstance(String.valueOf(maxCount), maxCount);
     }
 
     /**
-     * Return the single {@link com.blankj.utilcode.util.CacheMemoryUtils} instance.
+     * Return the single {@link kingwin.utils.gather.common.CacheMemoryUtils} instance.
      *
      * @param cacheKey The key of cache.
      * @param maxCount The max count of cache.
-     * @return the single {@link com.blankj.utilcode.util.CacheMemoryUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.CacheMemoryUtils} instance
      */
-    public static com.blankj.utilcode.util.CacheMemoryUtils getInstance(final String cacheKey, final int maxCount) {
-        com.blankj.utilcode.util.CacheMemoryUtils cache = CACHE_MAP.get(cacheKey);
+    public static CacheMemoryUtils getInstance(final String cacheKey, final int maxCount) {
+        CacheMemoryUtils cache = CACHE_MAP.get(cacheKey);
         if (cache == null) {
-            synchronized (com.blankj.utilcode.util.CacheMemoryUtils.class) {
+            synchronized (CacheMemoryUtils.class) {
                 cache = CACHE_MAP.get(cacheKey);
                 if (cache == null) {
-                    cache = new com.blankj.utilcode.util.CacheMemoryUtils(cacheKey, new LruCache<String, CacheValue>(maxCount));
+                    cache = new CacheMemoryUtils(cacheKey, new LruCache<String, CacheValue>(maxCount));
                     CACHE_MAP.put(cacheKey, cache);
                 }
             }

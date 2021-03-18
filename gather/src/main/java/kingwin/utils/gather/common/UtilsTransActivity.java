@@ -3,14 +3,17 @@ package kingwin.utils.gather.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+import kingwin.utils.gather.KUtilsGuide;
 
 /**
  * <pre>
@@ -27,38 +30,38 @@ public class UtilsTransActivity extends AppCompatActivity {
     protected static final String EXTRA_DELEGATE = "extra_delegate";
 
     public static void start(final TransActivityDelegate delegate) {
-        start(null, null, delegate, com.blankj.utilcode.util.UtilsTransActivity.class);
+        start(null, null, delegate, UtilsTransActivity.class);
     }
 
-    public static void start(final Utils.Consumer<Intent> consumer,
+    public static void start(final KUtilsGuide.Consumer<Intent> consumer,
                              final TransActivityDelegate delegate) {
-        start(null, consumer, delegate, com.blankj.utilcode.util.UtilsTransActivity.class);
-    }
-
-    public static void start(final Activity activity,
-                             final TransActivityDelegate delegate) {
-        start(activity, null, delegate, com.blankj.utilcode.util.UtilsTransActivity.class);
+        start(null, consumer, delegate, UtilsTransActivity.class);
     }
 
     public static void start(final Activity activity,
-                             final Utils.Consumer<Intent> consumer,
                              final TransActivityDelegate delegate) {
-        start(activity, consumer, delegate, com.blankj.utilcode.util.UtilsTransActivity.class);
+        start(activity, null, delegate,UtilsTransActivity.class);
+    }
+
+    public static void start(final Activity activity,
+                             final KUtilsGuide.Consumer<Intent> consumer,
+                             final TransActivityDelegate delegate) {
+        start(activity, consumer, delegate, UtilsTransActivity.class);
     }
 
     protected static void start(final Activity activity,
-                                final Utils.Consumer<Intent> consumer,
+                                final KUtilsGuide.Consumer<Intent> consumer,
                                 final TransActivityDelegate delegate,
                                 final Class<?> cls) {
         if (delegate == null) return;
-        Intent starter = new Intent(Utils.getApp(), cls);
+        Intent starter = new Intent(KUtilsGuide.getApp(), cls);
         starter.putExtra(EXTRA_DELEGATE, delegate);
         if (consumer != null) {
             consumer.accept(starter);
         }
         if (activity == null) {
             starter.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Utils.getApp().startActivity(starter);
+            KUtilsGuide.getApp().startActivity(starter);
         } else {
             activity.startActivity(starter);
         }
@@ -157,27 +160,27 @@ public class UtilsTransActivity extends AppCompatActivity {
     }
 
     public abstract static class TransActivityDelegate implements Serializable {
-        public void onCreateBefore(@NonNull com.blankj.utilcode.util.UtilsTransActivity activity, @Nullable Bundle savedInstanceState) {/**/}
+        public void onCreateBefore(@NonNull UtilsTransActivity activity, @Nullable Bundle savedInstanceState) {/**/}
 
-        public void onCreated(@NonNull com.blankj.utilcode.util.UtilsTransActivity activity, @Nullable Bundle savedInstanceState) {/**/}
+        public void onCreated(@NonNull UtilsTransActivity activity, @Nullable Bundle savedInstanceState) {/**/}
 
-        public void onStarted(@NonNull com.blankj.utilcode.util.UtilsTransActivity activity) {/**/}
+        public void onStarted(@NonNull UtilsTransActivity activity) {/**/}
 
-        public void onDestroy(@NonNull com.blankj.utilcode.util.UtilsTransActivity activity) {/**/}
+        public void onDestroy(@NonNull UtilsTransActivity activity) {/**/}
 
-        public void onResumed(@NonNull com.blankj.utilcode.util.UtilsTransActivity activity) {/**/}
+        public void onResumed(@NonNull UtilsTransActivity activity) {/**/}
 
-        public void onPaused(@NonNull com.blankj.utilcode.util.UtilsTransActivity activity) {/**/}
+        public void onPaused(@NonNull UtilsTransActivity activity) {/**/}
 
-        public void onStopped(@NonNull com.blankj.utilcode.util.UtilsTransActivity activity) {/**/}
+        public void onStopped(@NonNull UtilsTransActivity activity) {/**/}
 
-        public void onSaveInstanceState(@NonNull com.blankj.utilcode.util.UtilsTransActivity activity, Bundle outState) {/**/}
+        public void onSaveInstanceState(@NonNull UtilsTransActivity activity, Bundle outState) {/**/}
 
-        public void onRequestPermissionsResult(@NonNull com.blankj.utilcode.util.UtilsTransActivity activity, int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {/**/}
+        public void onRequestPermissionsResult(@NonNull UtilsTransActivity activity, int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {/**/}
 
-        public void onActivityResult(@NonNull com.blankj.utilcode.util.UtilsTransActivity activity, int requestCode, int resultCode, Intent data) {/**/}
+        public void onActivityResult(@NonNull UtilsTransActivity activity, int requestCode, int resultCode, Intent data) {/**/}
 
-        public boolean dispatchTouchEvent(@NonNull com.blankj.utilcode.util.UtilsTransActivity activity, MotionEvent ev) {
+        public boolean dispatchTouchEvent(@NonNull UtilsTransActivity activity, MotionEvent ev) {
             return false;
         }
     }

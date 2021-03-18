@@ -1,8 +1,9 @@
 package kingwin.utils.gather.common;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -20,10 +21,10 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2018/10/02
- *     desc  : utils about bus
+ *     author: KingWin
+ *     blog  : https://github.com/kingwin0129
+ *     time  : 2021/03/23
+ *     desc  : 事件总线 相关工具
  * </pre>
  */
 public final class BusUtils {
@@ -42,7 +43,7 @@ public final class BusUtils {
 
     /**
      * It'll be injected the bus who have {@link Bus} annotation
-     * by function of {@link com.blankj.utilcode.util.BusUtils#registerBus} when execute transform task.
+     * by function of {@link kingwin.utils.gather.common.BusUtils#registerBus} when execute transform task.
      */
     private void init() {/*inject*/}
 
@@ -100,7 +101,7 @@ public final class BusUtils {
         return "BusUtils: " + mTag_BusInfoListMap;
     }
 
-    private static com.blankj.utilcode.util.BusUtils getInstance() {
+    private static BusUtils getInstance() {
         return LazyHolder.INSTANCE;
     }
 
@@ -453,6 +454,6 @@ public final class BusUtils {
     }
 
     private static class LazyHolder {
-        private static final com.blankj.utilcode.util.BusUtils INSTANCE = new com.blankj.utilcode.util.BusUtils();
+        private static final BusUtils INSTANCE = new BusUtils();
     }
 }

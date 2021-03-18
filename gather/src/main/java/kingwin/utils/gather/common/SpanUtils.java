@@ -14,14 +14,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.FloatRange;
-import android.support.annotation.IntDef;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.text.Layout;
 import android.text.Layout.Alignment;
 import android.text.SpannableStringBuilder;
@@ -52,11 +44,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.FloatRange;
+import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
+
+import kingwin.utils.gather.KUtilsGuide;
 
 import static android.graphics.BlurMaskFilter.Blur;
 
@@ -84,8 +87,8 @@ public final class SpanUtils {
 
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
-    public static com.blankj.utilcode.util.SpanUtils with(final TextView textView) {
-        return new com.blankj.utilcode.util.SpanUtils(textView);
+    public static SpanUtils with(final TextView textView) {
+        return new SpanUtils(textView);
     }
 
     private TextView mTextView;
@@ -205,9 +208,9 @@ public final class SpanUtils {
      *             <li>{@link Spanned#SPAN_EXCLUSIVE_EXCLUSIVE}</li>
      *             <li>{@link Spanned#SPAN_EXCLUSIVE_INCLUSIVE}</li>
      *             </ul>
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setFlag(final int flag) {
+    public SpanUtils setFlag(final int flag) {
         this.flag = flag;
         return this;
     }
@@ -216,9 +219,9 @@ public final class SpanUtils {
      * Set the span of foreground's color.
      *
      * @param color The color of foreground
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setForegroundColor(@ColorInt final int color) {
+    public SpanUtils setForegroundColor(@ColorInt final int color) {
         this.foregroundColor = color;
         return this;
     }
@@ -227,9 +230,9 @@ public final class SpanUtils {
      * Set the span of background's color.
      *
      * @param color The color of background
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setBackgroundColor(@ColorInt final int color) {
+    public SpanUtils setBackgroundColor(@ColorInt final int color) {
         this.backgroundColor = color;
         return this;
     }
@@ -238,9 +241,9 @@ public final class SpanUtils {
      * Set the span of line height.
      *
      * @param lineHeight The line height, in pixel.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setLineHeight(@IntRange(from = 0) final int lineHeight) {
+    public SpanUtils setLineHeight(@IntRange(from = 0) final int lineHeight) {
         return setLineHeight(lineHeight, ALIGN_CENTER);
     }
 
@@ -254,9 +257,9 @@ public final class SpanUtils {
      *                   <li>{@link Align#ALIGN_CENTER}</li>
      *                   <li>{@link Align#ALIGN_BOTTOM}</li>
      *                   </ul>
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setLineHeight(@IntRange(from = 0) final int lineHeight,
+    public SpanUtils setLineHeight(@IntRange(from = 0) final int lineHeight,
                                                             @Align final int align) {
         this.lineHeight = lineHeight;
         this.alignLine = align;
@@ -267,9 +270,9 @@ public final class SpanUtils {
      * Set the span of quote's color.
      *
      * @param color The color of quote
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setQuoteColor(@ColorInt final int color) {
+    public SpanUtils setQuoteColor(@ColorInt final int color) {
         return setQuoteColor(color, 2, 2);
     }
 
@@ -279,9 +282,9 @@ public final class SpanUtils {
      * @param color       The color of quote.
      * @param stripeWidth The width of stripe, in pixel.
      * @param gapWidth    The width of gap, in pixel.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setQuoteColor(@ColorInt final int color,
+    public SpanUtils setQuoteColor(@ColorInt final int color,
                                                             @IntRange(from = 1) final int stripeWidth,
                                                             @IntRange(from = 0) final int gapWidth) {
         this.quoteColor = color;
@@ -295,9 +298,9 @@ public final class SpanUtils {
      *
      * @param first The indent for the first line of the paragraph.
      * @param rest  The indent for the remaining lines of the paragraph.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setLeadingMargin(@IntRange(from = 0) final int first,
+    public SpanUtils setLeadingMargin(@IntRange(from = 0) final int first,
                                                                @IntRange(from = 0) final int rest) {
         this.first = first;
         this.rest = rest;
@@ -308,9 +311,9 @@ public final class SpanUtils {
      * Set the span of bullet.
      *
      * @param gapWidth The width of gap, in pixel.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setBullet(@IntRange(from = 0) final int gapWidth) {
+    public SpanUtils setBullet(@IntRange(from = 0) final int gapWidth) {
         return setBullet(0, 3, gapWidth);
     }
 
@@ -320,9 +323,9 @@ public final class SpanUtils {
      * @param color    The color of bullet.
      * @param radius   The radius of bullet, in pixel.
      * @param gapWidth The width of gap, in pixel.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setBullet(@ColorInt final int color,
+    public SpanUtils setBullet(@ColorInt final int color,
                                                         @IntRange(from = 0) final int radius,
                                                         @IntRange(from = 0) final int gapWidth) {
         this.bulletColor = color;
@@ -335,9 +338,9 @@ public final class SpanUtils {
      * Set the span of font's size.
      *
      * @param size The size of font.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setFontSize(@IntRange(from = 0) final int size) {
+    public SpanUtils setFontSize(@IntRange(from = 0) final int size) {
         return setFontSize(size, false);
     }
 
@@ -346,9 +349,9 @@ public final class SpanUtils {
      *
      * @param size The size of font.
      * @param isSp True to use sp, false to use pixel.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setFontSize(@IntRange(from = 0) final int size, final boolean isSp) {
+    public SpanUtils setFontSize(@IntRange(from = 0) final int size, final boolean isSp) {
         this.fontSize = size;
         this.fontSizeIsDp = isSp;
         return this;
@@ -358,9 +361,9 @@ public final class SpanUtils {
      * Set the span of proportion of font.
      *
      * @param proportion The proportion of font.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setFontProportion(final float proportion) {
+    public SpanUtils setFontProportion(final float proportion) {
         this.proportion = proportion;
         return this;
     }
@@ -369,9 +372,9 @@ public final class SpanUtils {
      * Set the span of transverse proportion of font.
      *
      * @param proportion The transverse proportion of font.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setFontXProportion(final float proportion) {
+    public SpanUtils setFontXProportion(final float proportion) {
         this.xProportion = proportion;
         return this;
     }
@@ -379,9 +382,9 @@ public final class SpanUtils {
     /**
      * Set the span of strikethrough.
      *
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setStrikethrough() {
+    public SpanUtils setStrikethrough() {
         this.isStrikethrough = true;
         return this;
     }
@@ -389,9 +392,9 @@ public final class SpanUtils {
     /**
      * Set the span of underline.
      *
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setUnderline() {
+    public SpanUtils setUnderline() {
         this.isUnderline = true;
         return this;
     }
@@ -399,9 +402,9 @@ public final class SpanUtils {
     /**
      * Set the span of superscript.
      *
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setSuperscript() {
+    public SpanUtils setSuperscript() {
         this.isSuperscript = true;
         return this;
     }
@@ -409,9 +412,9 @@ public final class SpanUtils {
     /**
      * Set the span of subscript.
      *
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setSubscript() {
+    public SpanUtils setSubscript() {
         this.isSubscript = true;
         return this;
     }
@@ -419,9 +422,9 @@ public final class SpanUtils {
     /**
      * Set the span of bold.
      *
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setBold() {
+    public SpanUtils setBold() {
         isBold = true;
         return this;
     }
@@ -429,9 +432,9 @@ public final class SpanUtils {
     /**
      * Set the span of italic.
      *
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setItalic() {
+    public SpanUtils setItalic() {
         isItalic = true;
         return this;
     }
@@ -439,9 +442,9 @@ public final class SpanUtils {
     /**
      * Set the span of bold italic.
      *
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setBoldItalic() {
+    public SpanUtils setBoldItalic() {
         isBoldItalic = true;
         return this;
     }
@@ -455,9 +458,9 @@ public final class SpanUtils {
      *                   <li>serif</li>
      *                   <li>sans-serif</li>
      *                   </ul>
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setFontFamily(@NonNull final String fontFamily) {
+    public SpanUtils setFontFamily(@NonNull final String fontFamily) {
         this.fontFamily = fontFamily;
         return this;
     }
@@ -466,9 +469,9 @@ public final class SpanUtils {
      * Set the span of typeface.
      *
      * @param typeface The typeface.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setTypeface(@NonNull final Typeface typeface) {
+    public SpanUtils setTypeface(@NonNull final Typeface typeface) {
         this.typeface = typeface;
         return this;
     }
@@ -482,9 +485,9 @@ public final class SpanUtils {
      *                  <li>{@link Alignment#ALIGN_OPPOSITE}</li>
      *                  <li>{@link Alignment#ALIGN_CENTER  }</li>
      *                  </ul>
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setHorizontalAlign(@NonNull final Layout.Alignment alignment) {
+    public SpanUtils setHorizontalAlign(@NonNull final Layout.Alignment alignment) {
         this.alignment = alignment;
         return this;
     }
@@ -499,9 +502,9 @@ public final class SpanUtils {
      *              <li>{@link Align#ALIGN_BASELINE}</li>
      *              <li>{@link Align#ALIGN_BOTTOM  }</li>
      *              </ul>
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setVerticalAlign(@Align final int align) {
+    public SpanUtils setVerticalAlign(@Align final int align) {
         this.verticalAlign = align;
         return this;
     }
@@ -511,9 +514,9 @@ public final class SpanUtils {
      * <p>Must set {@code view.setMovementMethod(LinkMovementMethod.getInstance())}</p>
      *
      * @param clickSpan The span of click.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setClickSpan(@NonNull final ClickableSpan clickSpan) {
+    public SpanUtils setClickSpan(@NonNull final ClickableSpan clickSpan) {
         setMovementMethodIfNeed();
         this.clickSpan = clickSpan;
         return this;
@@ -526,9 +529,9 @@ public final class SpanUtils {
      * @param color         The color of click span.
      * @param underlineText True to support underline, false otherwise.
      * @param listener      The listener of click span.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setClickSpan(@ColorInt final int color,
+    public SpanUtils setClickSpan(@ColorInt final int color,
                                                            final boolean underlineText,
                                                            final View.OnClickListener listener) {
         setMovementMethodIfNeed();
@@ -555,9 +558,9 @@ public final class SpanUtils {
      * <p>Must set {@code view.setMovementMethod(LinkMovementMethod.getInstance())}</p>
      *
      * @param url The url.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setUrl(@NonNull final String url) {
+    public SpanUtils setUrl(@NonNull final String url) {
         setMovementMethodIfNeed();
         this.url = url;
         return this;
@@ -580,9 +583,9 @@ public final class SpanUtils {
      *               <li>{@link Blur#OUTER}</li>
      *               <li>{@link Blur#INNER}</li>
      *               </ul>
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setBlur(@FloatRange(from = 0, fromInclusive = false) final float radius,
+    public SpanUtils setBlur(@FloatRange(from = 0, fromInclusive = false) final float radius,
                                                       final Blur style) {
         this.blurRadius = radius;
         this.style = style;
@@ -593,9 +596,9 @@ public final class SpanUtils {
      * Set the span of shader.
      *
      * @param shader The shader.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setShader(@NonNull final Shader shader) {
+    public SpanUtils setShader(@NonNull final Shader shader) {
         this.shader = shader;
         return this;
     }
@@ -607,9 +610,9 @@ public final class SpanUtils {
      * @param dx          X-axis offset, in pixel.
      * @param dy          Y-axis offset, in pixel.
      * @param shadowColor The color of shadow.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setShadow(@FloatRange(from = 0, fromInclusive = false) final float radius,
+    public SpanUtils setShadow(@FloatRange(from = 0, fromInclusive = false) final float radius,
                                                         final float dx,
                                                         final float dy,
                                                         final int shadowColor) {
@@ -625,9 +628,9 @@ public final class SpanUtils {
      * Set the spans.
      *
      * @param spans The spans.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils setSpans(@NonNull final Object... spans) {
+    public SpanUtils setSpans(@NonNull final Object... spans) {
         if (spans.length > 0) {
             this.spans = spans;
         }
@@ -638,9 +641,9 @@ public final class SpanUtils {
      * Append the text text.
      *
      * @param text The text.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils append(@NonNull final CharSequence text) {
+    public SpanUtils append(@NonNull final CharSequence text) {
         apply(mTypeCharSequence);
         mText = text;
         return this;
@@ -649,9 +652,9 @@ public final class SpanUtils {
     /**
      * Append one line.
      *
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils appendLine() {
+    public SpanUtils appendLine() {
         apply(mTypeCharSequence);
         mText = LINE_SEPARATOR;
         return this;
@@ -660,9 +663,9 @@ public final class SpanUtils {
     /**
      * Append text and one line.
      *
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils appendLine(@NonNull final CharSequence text) {
+    public SpanUtils appendLine(@NonNull final CharSequence text) {
         apply(mTypeCharSequence);
         mText = text + LINE_SEPARATOR;
         return this;
@@ -672,9 +675,9 @@ public final class SpanUtils {
      * Append one image.
      *
      * @param bitmap The bitmap of image.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils appendImage(@NonNull final Bitmap bitmap) {
+    public SpanUtils appendImage(@NonNull final Bitmap bitmap) {
         return appendImage(bitmap, ALIGN_BOTTOM);
     }
 
@@ -689,9 +692,9 @@ public final class SpanUtils {
      *               <li>{@link Align#ALIGN_BASELINE}</li>
      *               <li>{@link Align#ALIGN_BOTTOM  }</li>
      *               </ul>
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils appendImage(@NonNull final Bitmap bitmap, @Align final int align) {
+    public SpanUtils appendImage(@NonNull final Bitmap bitmap, @Align final int align) {
         apply(mTypeImage);
         this.imageBitmap = bitmap;
         this.alignImage = align;
@@ -702,9 +705,9 @@ public final class SpanUtils {
      * Append one image.
      *
      * @param drawable The drawable of image.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils appendImage(@NonNull final Drawable drawable) {
+    public SpanUtils appendImage(@NonNull final Drawable drawable) {
         return appendImage(drawable, ALIGN_BOTTOM);
     }
 
@@ -719,9 +722,9 @@ public final class SpanUtils {
      *                 <li>{@link Align#ALIGN_BASELINE}</li>
      *                 <li>{@link Align#ALIGN_BOTTOM  }</li>
      *                 </ul>
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils appendImage(@NonNull final Drawable drawable, @Align final int align) {
+    public SpanUtils appendImage(@NonNull final Drawable drawable, @Align final int align) {
         apply(mTypeImage);
         this.imageDrawable = drawable;
         this.alignImage = align;
@@ -732,9 +735,9 @@ public final class SpanUtils {
      * Append one image.
      *
      * @param uri The uri of image.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils appendImage(@NonNull final Uri uri) {
+    public SpanUtils appendImage(@NonNull final Uri uri) {
         return appendImage(uri, ALIGN_BOTTOM);
     }
 
@@ -749,9 +752,9 @@ public final class SpanUtils {
      *              <li>{@link Align#ALIGN_BASELINE}</li>
      *              <li>{@link Align#ALIGN_BOTTOM  }</li>
      *              </ul>
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils appendImage(@NonNull final Uri uri, @Align final int align) {
+    public SpanUtils appendImage(@NonNull final Uri uri, @Align final int align) {
         apply(mTypeImage);
         this.imageUri = uri;
         this.alignImage = align;
@@ -762,9 +765,9 @@ public final class SpanUtils {
      * Append one image.
      *
      * @param resourceId The resource id of image.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils appendImage(@DrawableRes final int resourceId) {
+    public SpanUtils appendImage(@DrawableRes final int resourceId) {
         return appendImage(resourceId, ALIGN_BOTTOM);
     }
 
@@ -779,9 +782,9 @@ public final class SpanUtils {
      *                   <li>{@link Align#ALIGN_BASELINE}</li>
      *                   <li>{@link Align#ALIGN_BOTTOM  }</li>
      *                   </ul>
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils appendImage(@DrawableRes final int resourceId, @Align final int align) {
+    public SpanUtils appendImage(@DrawableRes final int resourceId, @Align final int align) {
         apply(mTypeImage);
         this.imageResourceId = resourceId;
         this.alignImage = align;
@@ -792,9 +795,9 @@ public final class SpanUtils {
      * Append space.
      *
      * @param size The size of space.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils appendSpace(@IntRange(from = 0) final int size) {
+    public SpanUtils appendSpace(@IntRange(from = 0) final int size) {
         return appendSpace(size, Color.TRANSPARENT);
     }
 
@@ -803,9 +806,9 @@ public final class SpanUtils {
      *
      * @param size  The size of space.
      * @param color The color of space.
-     * @return the single {@link com.blankj.utilcode.util.SpanUtils} instance
+     * @return the single {@link kingwin.utils.gather.common.SpanUtils} instance
      */
-    public com.blankj.utilcode.util.SpanUtils appendSpace(@IntRange(from = 0) final int size, @ColorInt final int color) {
+    public SpanUtils appendSpace(@IntRange(from = 0) final int size, @ColorInt final int color) {
         apply(mTypeSpace);
         spaceSize = size;
         spaceColor = color;
@@ -1262,7 +1265,7 @@ public final class SpanUtils {
 
         private CustomImageSpan(final Bitmap b, final int verticalAlignment) {
             super(verticalAlignment);
-            mDrawable = new BitmapDrawable(Utils.getApp().getResources(), b);
+            mDrawable = new BitmapDrawable(KUtilsGuide.getApp().getResources(), b);
             mDrawable.setBounds(
                     0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight()
             );
@@ -1295,9 +1298,9 @@ public final class SpanUtils {
                 Bitmap bitmap;
                 try {
                     InputStream is =
-                            Utils.getApp().getContentResolver().openInputStream(mContentUri);
+                            KUtilsGuide.getApp().getContentResolver().openInputStream(mContentUri);
                     bitmap = BitmapFactory.decodeStream(is);
-                    drawable = new BitmapDrawable(Utils.getApp().getResources(), bitmap);
+                    drawable = new BitmapDrawable(KUtilsGuide.getApp().getResources(), bitmap);
                     drawable.setBounds(
                             0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight()
                     );
@@ -1309,7 +1312,7 @@ public final class SpanUtils {
                 }
             } else {
                 try {
-                    drawable = ContextCompat.getDrawable(Utils.getApp(), mResourceId);
+                    drawable = ContextCompat.getDrawable(KUtilsGuide.getApp(), mResourceId);
                     drawable.setBounds(
                             0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight()
                     );

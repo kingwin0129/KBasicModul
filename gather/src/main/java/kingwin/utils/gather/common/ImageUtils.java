@@ -33,17 +33,18 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.FloatRange;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.FloatRange;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -54,6 +55,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import kingwin.utils.gather.KUtilsGuide;
 
 /**
  * <pre>
@@ -146,7 +149,7 @@ public final class ImageUtils {
      * @return drawable
      */
     public static Drawable bitmap2Drawable(@Nullable final Bitmap bitmap) {
-        return bitmap == null ? null : new BitmapDrawable(Utils.getApp().getResources(), bitmap);
+        return bitmap == null ? null : new BitmapDrawable(KUtilsGuide.getApp().getResources(), bitmap);
     }
 
     /**
@@ -251,7 +254,7 @@ public final class ImageUtils {
      * @return bitmap
      */
     public static Bitmap getBitmap(final String filePath) {
-        if (UtilsBridge.isSpace(filePath)) return null;
+        if (KUtilsGuide.isSpace(filePath)) return null;
         return BitmapFactory.decodeFile(filePath);
     }
 
@@ -264,7 +267,7 @@ public final class ImageUtils {
      * @return bitmap
      */
     public static Bitmap getBitmap(final String filePath, final int maxWidth, final int maxHeight) {
-        if (UtilsBridge.isSpace(filePath)) return null;
+        if (KUtilsGuide.isSpace(filePath)) return null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(filePath, options);
@@ -343,7 +346,7 @@ public final class ImageUtils {
      * @return bitmap
      */
     public static Bitmap getBitmap(@DrawableRes final int resId) {
-        Drawable drawable = ContextCompat.getDrawable(Utils.getApp(), resId);
+        Drawable drawable = ContextCompat.getDrawable(KUtilsGuide.getApp(), resId);
         if (drawable == null) {
             return null;
         }
@@ -369,7 +372,7 @@ public final class ImageUtils {
                                    final int maxWidth,
                                    final int maxHeight) {
         BitmapFactory.Options options = new BitmapFactory.Options();
-        final Resources resources = Utils.getApp().getResources();
+        final Resources resources = KUtilsGuide.getApp().getResources();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(resources, resId, options);
         options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
@@ -1360,7 +1363,7 @@ public final class ImageUtils {
         RenderScript rs = null;
         Bitmap ret = recycle ? src : src.copy(src.getConfig(), true);
         try {
-            rs = RenderScript.create(Utils.getApp());
+            rs = RenderScript.create(KUtilsGuide.getApp());
             rs.setMessageHandler(new RenderScript.RSMessageHandler());
             Allocation input = Allocation.createFromBitmap(rs,
                     ret,
@@ -1670,7 +1673,7 @@ public final class ImageUtils {
                                final String filePath,
                                final CompressFormat format,
                                final int quality) {
-        return save(src, UtilsBridge.getFileByPath(filePath), format, quality, false);
+        return save(src, KUtilsGuide.getFileByPath(filePath), format, quality, false);
     }
 
     /**
@@ -1706,7 +1709,7 @@ public final class ImageUtils {
                                final CompressFormat format,
                                final int quality,
                                final boolean recycle) {
-        return save(src, UtilsBridge.getFileByPath(filePath), format, quality, recycle);
+        return save(src, KUtilsGuide.getFileByPath(filePath), format, quality, recycle);
     }
 
     /**
@@ -1735,7 +1738,7 @@ public final class ImageUtils {
             Log.e("ImageUtils", "bitmap is recycled.");
             return false;
         }
-        if (!UtilsBridge.createFileByDeleteOldFile(file)) {
+        if (!KUtilsGuide.createFileByDeleteOldFile(file)) {
             Log.e("ImageUtils", "create or delete file <" + file + "> failed.");
             return false;
         }
@@ -1880,11 +1883,11 @@ public final class ImageUtils {
                                   final CompressFormat format,
                                   final int quality,
                                   final boolean recycle) {
-        String safeDirName = TextUtils.isEmpty(dirName) ? Utils.getApp().getPackageName() : dirName;
+        String safeDirName = TextUtils.isEmpty(dirName) ? KUtilsGuide.getApp().getPackageName() : dirName;
         String suffix = CompressFormat.JPEG.equals(format) ? "JPG" : format.name();
         String fileName = System.currentTimeMillis() + "_" + quality + "." + suffix;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            if (!UtilsBridge.isGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (!KUtilsGuide.isGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 Log.e("ImageUtils", "save to album need storage permission");
                 return null;
             }
@@ -1893,7 +1896,7 @@ public final class ImageUtils {
             if (!save(src, destFile, format, quality, recycle)) {
                 return null;
             }
-            UtilsBridge.notifySystemToScan(destFile);
+            KUtilsGuide.notifySystemToScan(destFile);
             return destFile;
         } else {
             ContentValues contentValues = new ContentValues();
@@ -1907,22 +1910,22 @@ public final class ImageUtils {
             }
             contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_DCIM + "/" + safeDirName);
             contentValues.put(MediaStore.MediaColumns.IS_PENDING, 1);
-            Uri uri = Utils.getApp().getContentResolver().insert(contentUri, contentValues);
+            Uri uri = KUtilsGuide.getApp().getContentResolver().insert(contentUri, contentValues);
             if (uri == null) {
                 return null;
             }
             OutputStream os = null;
             try {
-                os = Utils.getApp().getContentResolver().openOutputStream(uri);
+                os = KUtilsGuide.getApp().getContentResolver().openOutputStream(uri);
                 src.compress(format, quality, os);
 
                 contentValues.clear();
                 contentValues.put(MediaStore.MediaColumns.IS_PENDING, 0);
-                Utils.getApp().getContentResolver().update(uri, contentValues, null, null);
+                KUtilsGuide.getApp().getContentResolver().update(uri, contentValues, null, null);
 
-                return UtilsBridge.uri2File(uri);
+                return KUtilsGuide.uri2File(uri);
             } catch (Exception e) {
-                Utils.getApp().getContentResolver().delete(uri, null, null);
+                KUtilsGuide.getApp().getContentResolver().delete(uri, null, null);
                 e.printStackTrace();
                 return null;
             } finally {
@@ -1974,7 +1977,7 @@ public final class ImageUtils {
      * @return the type of image
      */
     public static ImageType getImageType(final String filePath) {
-        return getImageType(UtilsBridge.getFileByPath(filePath));
+        return getImageType(KUtilsGuide.getFileByPath(filePath));
     }
 
     /**
@@ -2018,7 +2021,7 @@ public final class ImageUtils {
     }
 
     private static ImageType getImageType(final byte[] bytes) {
-        String type = UtilsBridge.bytes2HexString(bytes).toUpperCase();
+        String type = KUtilsGuide.bytes2HexString(bytes).toUpperCase();
         if (type.contains("FFD8FF")) {
             return ImageType.TYPE_JPG;
         } else if (type.contains("89504E47")) {
@@ -2304,7 +2307,7 @@ public final class ImageUtils {
      * @return the size of bitmap
      */
     public static int[] getSize(String filePath) {
-        return getSize(UtilsBridge.getFileByPath(filePath));
+        return getSize(KUtilsGuide.getFileByPath(filePath));
     }
 
     /**
